@@ -23,7 +23,7 @@ echo "10 x 20 é " . $resultado . "<br>";
 $porcentagem = 1900 * 0.18;
 echo "18% de 1900 é " . $porcentagem . "<br>";
 
-$intervalo = date_diff(new DateTime('2024-2-28'), new DateTime('2024-8-15'));
+$intervalo = date_diff(new DateTime('2024-2-28'), new DateTime('now'));
 
 echo $intervalo->format('Já se passaram %a dias desde 28 de fevereiro de 2024.')
 

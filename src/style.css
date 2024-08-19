@@ -1,0 +1,52 @@
+/* ------------------------------- HEADER E NAV */
+header{
+    width: 15vw;
+    height: 100vh;
+}
+
+#maincontent{
+    max-height: calc(100vh - 64px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------- CORES */
+
+.azul-claro{
+    background-color: #D7FDFF;
+}
+.azul-medio{
+    background-color: #9DFBFF;
+}
+.azul-escuro{
+    background-color: #00CFD9;
+}
+
+.amarelo-claro{
+    background-color: #FFF2D6;
+}
+.amarelo-medio{
+    background-color: #FFDF9C;
+}
+.amarelo-escuro{
+    background-color: #FFAB00;
+}
+
+.vermelho-claro{
+    background-color: #FFD7D6;
+}
+.vermelho-escuro{
+    background-color: #FF9F9C;
+}
+.vermelho-medio{
+    background-color: #FF0700;
+}
