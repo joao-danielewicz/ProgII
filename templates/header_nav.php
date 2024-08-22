@@ -10,7 +10,7 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body p-0">
                         <div class="list-group list-group-flush" categoria="aulas">
-                            <button type="button" arquivo="2208data_hora.php" class="list-group-item list-group-item-action">
+                            <button type="button" arquivo="1508data_hora.php" class="list-group-item list-group-item-action">
                                 Aula 15/08
                             </button>
                         </div>
