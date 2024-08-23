@@ -4,8 +4,8 @@ header{
     height: 100vh;
 }
 
-main{
-    height: 100vh;
+#maincontent{
+    max-height: calc(100vh - 64px);
 }
 
 
@@ -44,9 +44,9 @@ main{
 .vermelho-claro{
     background-color: #FFD7D6;
 }
-.vermelho-medio{
+.vermelho-escuro{
     background-color: #FF9F9C;
 }
-.vermelho-escuro{
+.vermelho-medio{
     background-color: #FF0700;
 }
