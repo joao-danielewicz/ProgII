@@ -12,85 +12,105 @@
 
 <body>
     <h3>Calendário</h3>
-
-    <!-- cria função para linhas -->
+    <form action="calendario2.php" method="post">
+        <input type="number" min="1" max="12" name="mes" placeholder="Mês">
+        <input type="number" min="1" max="2500"  name="ano" placeholder="Ano">
+        <button type="submit">Criar</button>
+    </form>
     <?php
-    function linha($semana)
-    {
-        $organizacaoDias = [
-            "Mon",
-            "Tue",
-            "Wed",
-            "Thu",
-            "Fri",
-            "Sat",
-            "Sun"
-        ];
-        $linha = "<tr>";
-        
-        $diaComecoMes = date("D", mktime(0,0,0, 8, 1, 2024));
-        
-        for($i=0; $i<7; $i++){
-            if($organizacaoDias[$i]==$diaComecoMes){
-                $diaComecoMes = $i;
-            }
-        }
-        for($i = 0; $i < 7; $i++){
-            if((array_key_exists($i, $semana))){
-                if($i == 6){
-                    $linha .= "<td style='background-color: rgb(255, 0 ,0)'>{$semana[$i]}</td>";
-                }else{
-                    $linha .= "<td>{$semana[$i]}</td>";
-                }
+        function populaCalendario(){
+            if(isset($_POST['mes'])){
+                $mes = $_POST['mes'];
             }else{
-                $linha .= "<td></td>";
+                $mes = 8;
             }
-        }
-        
-        $linha .= "</tr>";
-        return $linha;
-    }
-    
-    function populaCalendario(){
-        $calendario = '';
-        $dia = 1;
-        $semana = [];
-        
-        while($dia <= 31){
-            array_push($semana, $dia);
             
-            if(count($semana)==7){
-                $calendario .= linha($semana);
-                $semana = [];
+            if(isset($_POST['ano'])){
+                $ano = $_POST['ano'];
+            }else{
+                $ano = 2024;
             }
-            $dia++;
-        }
+            $diaSemanaComecoMes = date("D", mktime(0,0,0, $mes, 1, $ano));
+            $nomesDiasSemana = [
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat"
+            ];
         
-        $calendario .= linha($semana);
-        return $calendario;
-    }
-    ?>
+            $quantidadesDias = [
+                31,
+                28,
+                31,
+                30,
+                31,
+                30,
+                31,
+                31,
+                30,
+                31,
+                30,
+                31
+            ];
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>SEG</th>
-            <th>TER</th>
-            <th>QUA</th>
-            <th>QUI</th>
-            <th>SEX</th>
-            <th>SAB</th>
-            <th>DOM</th>
-        </tr>
-    </thead>
+            $quantidadeDiasMes = $quantidadesDias[$mes-1];
+
+
+            echo "<tr>";
+            $dia = 1;
+            $i = 1;
+            foreach($nomesDiasSemana as $nome){
+                if($diaSemanaComecoMes == $nome){
+                    if($nome=="Sun"){
+                        echo "<td style='background-color: rgb(255, 0, 0, 50%)'>$dia</td>";
+                    }else{
+                        echo "<td>$dia</td>";
+                    }
+                    $dia++;
+                    break;
+                }else{
+                    echo "<td></td>";
+                }
+                $i++;
+            }
+            
+            for($dia=$dia; $dia<$quantidadeDiasMes+1; $dia++){
+                if($i%7==0){
+                    echo "</tr>";
+                    echo "<tr>";
+                    echo "<td style='background-color: rgb(255, 0, 0, 50%)'>$dia</td>";
+                }else {
+                    echo "<td>$dia</td>";
+                }               
+                $i++;
+            }
+            echo "</tr>";
+        }
+    ?>
     
-    <tbody>
-        <?php
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>DOM</th>
+                <th>SEG</th>
+                <th>TER</th>
+                <th>QUA</th>
+                <th>QUI</th>
+                <th>SEX</th>
+                <th>SAB</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php
                 echo populaCalendario();
-                
-                ?>
+            ?>
         </tbody>
-        
+
     </table>
 
 
