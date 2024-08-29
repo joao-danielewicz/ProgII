@@ -1,138 +1,134 @@
 <?php
+include "../templates/head.php";
+include "../templates/header_nav.php";
+
+function calcularAnoBissexto($ano)
+{
+    if ($ano % 4 == 0) {
+        if (($ano % 100 == 0) && ($ano % 400 != 0)) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+function getDiasDoMes($ano, $mes)
+{
+    // Verifica quantos dias serão necessários distribuir no mês.
+    $quantidadesDiasPorMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (calcularAnoBissexto($ano)) {
+        $quantidadesDiasPorMes[1] = 29;
+    }
+    $quantidadeDiasMes = $quantidadesDiasPorMes[$mes - 1];
+
+    $diasDaSemana = [
+        "Sun" => 1,
+        "Mon" => 0,
+        "Tue" => -1,
+        "Wed" => -2,
+        "Thu" => -3,
+        "Fri" => -4,
+        "Sat" => -5
+    ];
+
+    $diaSemanaComecoMes = date("D", mktime(0, 0, 0, $mes, 1, $ano));
+
+    $diasDoMes = [];
+    $dia = $diasDaSemana[$diaSemanaComecoMes];
+    $aux = 1;
+    while ($dia < $quantidadeDiasMes + 1) {
+        array_push($diasDoMes, $dia);
+        if ($aux % 7 == 0) {
+            array_push($diasDoMes, null);
+        }
+        $aux++;
+        $dia++;
+    }
+
+    array_push($diasDoMes, null);
+    return $diasDoMes;
+}
+
+function criarSemanas($diasDoMes)
+{
+    $semanasDoMes = [];
+    $semana = [];
+    foreach ($diasDoMes as $dia) {
+        if ($dia === null) {
+            array_push($semanasDoMes, $semana);
+            $semana = [];
+        } else {
+            array_push($semana, $dia);
+        }
+    }
+
+    return $semanasDoMes;
+}
+
+function criarTableBodyCalendario($ano, $mes)
+{
+    foreach (criarSemanas(getDiasDoMes($ano, $mes)) as $semana) {
+        echo "<tr>";
+        $aux = 1;
+        foreach ($semana as $dia) {
+            $style = "";
+            if ($dia > 0) {
+                if ($aux == 1) {
+                    $style .= 'background-color: rgb(255, 0,0, 50%);';
+                }
+                if ($dia == date('d')) {
+                    $style .= 'font-weight: bold';
+                }
+
+                echo "<td style='$style'>$dia</td>";
+            } else {
+                echo "<td></td>";
+            }
+            $aux++;
+        }
+        echo "</tr>";
+    }
+}
+
 
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário</title>
-</head>
-
-<body>
-    <h3 class="text-center mb-3">Calendário</h3>
-    <form action="index.php" method="post" class="mb-3 d-flex gap-3">
-        <input class="form-control" type="number" min="1" max="12" name="mes" placeholder="Mês">
-        <input class="form-control" type="number" min="1" max="2500"  name="ano" placeholder="Ano">
-        <button type="submit" name="criarcalendario" class="btn btn-primary">Criar</button>
+<div class="d-flex flex-column text-center mx-auto">
+    <form action="calendario3.php" method="post" class="d-flex gap-3 mb-5">
+        <input class="form-control" type="number" min="1" max="12" placeholder="Mês" name="mes">
+        <input class="form-control" type="number" min="1" max="5000" placeholder="Ano" name="ano">
+        <button class="btn btn-primary" type="submit" name="submit">Criar</button>
     </form>
 
-    <?php
-        // Verificar se o usuário escolheu algum mês e ano específicos no Formulário.
-        // Se não houver nenhum, usa como padrão a data em que a atividade foi realizada (8/2024).
-        if(isset($_POST['mes'])){
-            $mes = $_POST['mes'];
-        }else{
-            $mes = 8;
-        }
-        
-        if(isset($_POST['ano'])){
-            $ano = $_POST['ano'];
-        }else{
-            $ano = 2024;
-        }
+    <table class="table border border-dark bg-white">
+        <thead>
+            <tr>
+                <th style="border: 1px solid">DOM</th>
+                <th style="border: 1px solid">SEG</th>
+                <th style="border: 1px solid">TER</th>
+                <th style="border: 1px solid">QUA</th>
+                <th style="border: 1px solid">QUI</th>
+                <th style="border: 1px solid">SEX</th>
+                <th style="border: 1px solid">SAB</th>
+            </tr>
+        </thead>
 
-        // Verifica se o ano escolhido é bissexto para, posteriormente, adicionar um dia ao mês de fevereiro.
-        function calcularAnoBissexto($ano) {
-            if ($ano % 4 == 0) {
-                if (($ano % 100 == 0) && ($ano % 400 != 0)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        }
-
-        // Escreve o calendário de acordo com o mês e ano escolhidos.
-        function populaCalendario($mes, $ano){
-            echo "<p>".$mes.'/'.$ano."</p>";
-
-            // Descobre em qual dia da semana o mês começou.
-            $diaSemanaComecoMes = date("D", mktime(0,0,0, $mes, 1, $ano));
-            $nomesDiasSemana = [
-                "Sun",
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat"
-            ];
-        
-            // Verifica quantos dias serão necessários distribuir no mês.
-            $quantidadesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            if(calcularAnoBissexto($ano)){
-                $quantidadesDias[1] = 29;
-            }
-            $quantidadeDiasMes = $quantidadesDias[$mes-1];
-
-            // Como descobre-se primeiro o nome do dia da semana, passamos por eles sem escrever nada.
-            // O primeiro loop preencherá os dias anteriores ao dia primeiro com células vazias.
-            // Assim que o primeiro dia for posicionado corretamente, o dia da semana se tornará irrelevante para a disposição dos numerais.
-            echo "<tr>";
-            $dia = 1;
-            $aux = 1;
-            foreach($nomesDiasSemana as $nome){
-                if($diaSemanaComecoMes == $nome){
-                    if($nome=="Sun"){
-                        echo "<td style='background-color: rgb(255, 0, 0, 50%)'>$dia</td>";
-                    }else{
-                        echo "<td>$dia</td>";
-                    }
-                    $dia++;
-                    break;
+        <tbody>
+            <?php
+                if(!isset($_POST['mes']) && !isset($_POST['ano'])){
+                    $ano = 2024;
+                    $mes = 8;
                 }else{
-                    echo "<td></td>";
+                    $ano = $_POST['ano'];
+                    $mes = $_POST['mes'];;
                 }
-                $aux++;
-            }
-            
-            // Preenche todos os dias a partir do primeiro até o limite do mês.
-            // O auxiliar é usado para contar as células, já que deve-se iniciar uma nova linha da tabela a cada 7 células.
-            for($dia; $dia<$quantidadeDiasMes+1; $dia++){
-                if($aux%7==0){
-                    echo "</tr>";
-                    echo "<tr>";
-                    echo "<td style='background-color: rgb(255, 0, 0, 50%)'>$dia</td>";
-                }else if($dia == date('j')){
-                    echo "<td style='font-weight: bold'>$dia</td>";
-                }else{
-                    echo "<td>$dia</td>";
-                }
-                $aux++;
-            }
-            echo "</tr>";
-        }
-    ?>
-    
-    <div class="d-flex flex-column text-center">
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>DOM</th>
-                    <th>SEG</th>
-                    <th>TER</th>
-                    <th>QUA</th>
-                    <th>QUI</th>
-                    <th>SEX</th>
-                    <th>SAB</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                <?php
-                echo populaCalendario(8, 2024);
-                ?>
+                echo "<p class='mb-0 border border-dark border-bottom-0 bg-white py-3 fs-5 fw-bold'>$mes/$ano</p>";
+                criarTableBodyCalendario($ano, $mes);
+            ?>
         </tbody>
-        
-    </table>
-    </div>
-    
-    
-</body>
 
-</html>
+    </table>
+</div>

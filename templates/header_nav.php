@@ -9,13 +9,13 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body p-0">
-                        <div class="list-group list-group-flush" categoria="aulas">
-                            <button type="button" arquivo="1508data_hora.php" class="list-group-item list-group-item-action">
+                        <div class="list-group list-group-flush">
+                            <a type="button" href="/aulas/1508data_hora.php" class="list-group-item list-group-item-action">
                                 Aula 15/08
-                            </button>
-                            <button type="button" arquivo="2208calendario.php" class="list-group-item list-group-item-action">
+                            </a>
+                            <a type="button" href="/aulas/2208calendario.php" class="list-group-item list-group-item-action">
                                 Aula 22/08
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -23,10 +23,3 @@
         </div>
     </nav>
 </header>
-
-<script>
-    $(".list-group button").on("click", function(e) {
-        $path = $(".list-group").attr("categoria") + "/" + $(e.target).attr("arquivo");
-        $("#maincontent").load($path)
-    })
-</script>
