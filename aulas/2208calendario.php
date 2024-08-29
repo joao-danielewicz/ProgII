@@ -97,7 +97,7 @@ function criarTableBodyCalendario($ano, $mes)
 ?>
 
 <div class="d-flex flex-column text-center mx-auto">
-    <form action="calendario3.php" method="post" class="d-flex gap-3 mb-5">
+    <form action="#" method="post" class="d-flex gap-3 mb-5">
         <input class="form-control" type="number" min="1" max="12" placeholder="Mês" name="mes">
         <input class="form-control" type="number" min="1" max="5000" placeholder="Ano" name="ano">
         <button class="btn btn-primary" type="submit" name="submit">Criar</button>
