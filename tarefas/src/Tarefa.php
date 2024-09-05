@@ -16,4 +16,15 @@ class Tarefa{
         $this->datafinal = new DateTime($datafinal);
         $this->status=$status;
     }
+
+    public function toArray(){
+        $tarefa = [
+            "id" => $this->id,
+            "nome" => $this->nome,
+            "prioridade" => $this->prioridade,
+            "datafinal" => $this->datafinal->format("Y-m-d"),
+            "status" => $this->status,
+        ];
+        return $tarefa;
+    }
 }

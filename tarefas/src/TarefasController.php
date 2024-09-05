@@ -11,7 +11,7 @@ class TarefasController{
         $this->id = 0;
     }
 
-    public function Adicionar(Array $post){
+    public function Adicionar($post){
         if(!isset($post['status'])){
             $post['status'] = 0;
         }
