@@ -9,8 +9,8 @@ class TarefasController{
         $this->method = $method;
     }
 
-    public function Adicionar($tarefa){
-        $this->method->Insert($tarefa);
+    public function Adicionar($post){
+        $this->method->Insert($post);
     }
     
     public function GetTarefas(){

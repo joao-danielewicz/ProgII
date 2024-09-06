@@ -8,10 +8,6 @@ class StorageOnCsv{
     }
     
     public function Insert($tarefa){
-        if(!isset($tarefa['status'])){
-            $tarefa['status'] = 0;
-        }
-
         $tarefa['id'] = $this->GetNextId();
 
         $fp = fopen($this->path, 'a');
@@ -24,14 +20,17 @@ class StorageOnCsv{
         while (($dados = fgetcsv($fp)) !== false) {
             $array[] = $dados;
         }
-        
         return $array;
     }
 
     private function GetNextId(){
+        if($this->SelectAllTarefas() == null){
+            return 1;
+        }
+
         $ids = [];
         foreach($this->SelectAllTarefas() as $tarefa){
-            $ids[] = $tarefa[7];
+            $ids[] = $tarefa[6];
         }
         $nextId = max($ids);
         return $nextId+1;

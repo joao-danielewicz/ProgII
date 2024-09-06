@@ -1,7 +1,5 @@
 <?php
-
-namespace Tarefas;
-require_once "src/Tarefa.php";
+include "src/config.php";
 session_start();
 
 ?>
@@ -38,7 +36,7 @@ session_start();
             <input type="date" name="prazo" required>
 
 
-            <label for="status">Tarefa completada</label>
+            <label for="concluida">Tarefa completada</label>
             <input type="checkbox" name="concluida">
             <input type="submit" name="gravar">
         </fieldset>
@@ -58,17 +56,11 @@ session_start();
         </thead>
 
         <?php
-        foreach (buscar_tarefas($conexao) as $tarefa):
+        
+        foreach ($tarefasController->GetTarefas() as $tarefa):
         ?>
 
-            <tr>
-                <td style='padding: 10px'><?php echo $tarefa['id']; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa['nome']; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa['descricao']; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa['prazo']; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa['concluida']; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa['prioridade']; ?></td>
-            </tr>
+           
 
         <?php
         endforeach;
