@@ -47,7 +47,7 @@ session_start();
 
         <?php 
             if(isset($_SESSION['lista_tarefas'])):
-            foreach ($_SESSION['lista_tarefas'] as $linha): 
+            foreach (buscar_tarefas($conexao) as $tarefas): 
                 $tarefa = new Tarefa($linha[0], $linha[1], $linha[2], $linha[3]);
         ?>
 
