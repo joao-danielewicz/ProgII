@@ -1,7 +1,7 @@
 <?php
+
 namespace Tarefas;
 require_once "src/Tarefa.php";
-include 'banco.php';
 session_start();
 
 ?>
@@ -22,14 +22,24 @@ session_start();
             <legend>Nova tarefa</legend>
 
             <input type="text" name="nome" placeholder="Nome da tarefa" required>
-            <input type="text" name="prioridade" placeholder="Prioridade">
+
+            
+            <label>Prioridade: </label>
+            <input type="radio" value='Alta' name="prioridade" required id="alta">
+            <label for="alta">Alta</label>
+            <input type="radio" value='Média' name="prioridade" required id="media">
+            <label for="media">Média</label>
+            <input type="radio" value='Baixa' name="prioridade" required id="baixa">
+            <label for="baixa">Baixa</label>
+            
+            <input type="text" name="descricao" placeholder="Descricao" required>
 
             <label>Terminar até: </label>
-            <input type="date" name="datafinal">
+            <input type="date" name="prazo" required>
 
 
             <label for="status">Tarefa completada</label>
-            <input type="checkbox" name="status" id="status">
+            <input type="checkbox" name="concluida">
             <input type="submit" name="gravar">
         </fieldset>
     </form>
@@ -38,30 +48,38 @@ session_start();
     <table border='1px solid'>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nome</th>
-                <th>Data</th>
-                <th>Status</th>
+                <th>Descricao</th>
+                <th>Prazo</th>
+                <th>Conclusão</th>
                 <th>Prioridade</th>
             </tr>
         </thead>
 
-        <?php 
-            if(isset($_SESSION['lista_tarefas'])):
-            foreach ($_SESSION['lista_tarefas'] as $linha): 
-                $tarefa = new Tarefa($linha[0], $linha[1], $linha[2], $linha[3]);
+        <?php
+        foreach (buscar_tarefas($conexao) as $tarefa):
         ?>
 
             <tr>
-                <td style='padding: 10px'><?php echo $tarefa->nome; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa->datafinal->format("Y-m-d"); ?></td>
-                <td style='padding: 10px'><?php echo $tarefa->status; ?></td>
-                <td style='padding: 10px'><?php echo $tarefa->prioridade; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['id']; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['nome']; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['descricao']; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['prazo']; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['concluida']; ?></td>
+                <td style='padding: 10px'><?php echo $tarefa['prioridade']; ?></td>
             </tr>
 
-        <?php 
-            endforeach;
-            endif;
+        <?php
+        endforeach;
         ?>
     </table>
+
+    <?php
+    if (isset($_SESSION['msg'])) {
+        echo ($_SESSION['msg']);
+    }
+    ?>
 </body>
+
 </html>

@@ -3,24 +3,29 @@ namespace Tarefas;
 use DateTime;
 
 class Tarefa{
+    public int $id;
     public string $nome;
+    public string $descricao;
     public string $prioridade;
-    public DateTime $datafinal;
-    public bool $status;
+    public DateTime $prazo;
+    public bool $concluida;
 
-    public function __construct(string $nome, string $prioridade, string $datafinal, bool $status){
+    public function __construct(int $id=0, string $nome, string $descricao, string $prioridade, string $prazo, bool $concluida){
+        $this->id=$id;
         $this->nome=$nome;
+        $this->descricao=$descricao;
         $this->prioridade=$prioridade;
-        $this->datafinal = new DateTime($datafinal);
-        $this->status=$status;
+        $this->prazo = new DateTime($prazo);
+        $this->concluida=$concluida;
     }
 
     public function toArray(){
         $tarefa = [
             "nome" => $this->nome,
+            "descricao" => $this->descricao,
             "prioridade" => $this->prioridade,
-            "datafinal" => $this->datafinal->format("Y-m-d"),
-            "status" => $this->status,
+            "prazo" => $this->prazo->format("Y-m-d"),
+            "concluida" => $this->concluida,
         ];
         return $tarefa;
     }

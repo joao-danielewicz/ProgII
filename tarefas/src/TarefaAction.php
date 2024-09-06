@@ -1,10 +1,10 @@
 <?php
-include "config.php";
+namespace Tarefas;
+require_once "config.php";
 
 
 if(isset($_POST)){
     $tarefasController->Adicionar($_POST);
-    $_SESSION['lista_tarefas'] = $tarefasController->GetTarefas();
 }
 
 header('location: ../TarefaForm.php');

@@ -9,22 +9,11 @@ class TarefasController{
         $this->method = $method;
     }
 
-    public function Adicionar($post){
-        if(!isset($post['status'])){
-            $post['status'] = 0;
-        }
-
-        $tarefa = new Tarefa(
-            $post['nome'],
-            $post['prioridade'],
-            $post['datafinal'],
-            $post['status']
-        );
-
+    public function Adicionar($tarefa){
         $this->method->Insert($tarefa);
     }
     
     public function GetTarefas(){
-        return $this->method->RetrieveAll();
+        return $this->method->SelectAllTarefas();
     }
 }
