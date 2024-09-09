@@ -57,6 +57,7 @@ session_start();
 
         <tbody>
             <?php
+            if($tarefasController ->GetTarefas() != null):
             foreach ($tarefasController->GetTarefas() as $tarefa):
             ?>
             <tr>
@@ -69,6 +70,7 @@ session_start();
             </tr>
             <?php
             endforeach;
+            endif;
             ?>
         </tbody>
     </table>

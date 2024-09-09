@@ -38,11 +38,10 @@ class StorageOnCsv{
             $array[] = $dados;
         }
         
-        if($array == null){
+        if(!isset($array)){
             return null;
-        }else{
-            return $this->BuildTarefasFromCsv($array);
         }
+        return $this->BuildTarefasFromCsv($array);
     }
 
 
