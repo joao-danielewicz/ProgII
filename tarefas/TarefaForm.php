@@ -37,7 +37,7 @@ session_start();
 
 
             <label for="concluida">Tarefa completada</label>
-            <input type="checkbox" name="concluida">
+            <input type="checkbox" name="concluida" value="1">
             <input type="submit" name="gravar">
         </fieldset>
     </form>
@@ -55,16 +55,22 @@ session_start();
             </tr>
         </thead>
 
-        <?php
-        
-        foreach ($tarefasController->GetTarefas() as $tarefa):
-        ?>
-
-           
-
-        <?php
-        endforeach;
-        ?>
+        <tbody>
+            <?php
+            foreach ($tarefasController->GetTarefas() as $tarefa):
+            ?>
+            <tr>
+                <td><?= $tarefa->id ?></td>
+                <td><?= $tarefa->nome?></td>
+                <td><?= $tarefa->descricao?></td>
+                <td><?= $tarefa->prazo->format('d-m-y')?></td>
+                <td><?= $tarefa->concluida  ? 'Sim' : 'Não'?></td>
+                <td><?= $tarefa->prioridade?></td>         
+            </tr>
+            <?php
+            endforeach;
+            ?>
+        </tbody>
     </table>
 
     <?php
