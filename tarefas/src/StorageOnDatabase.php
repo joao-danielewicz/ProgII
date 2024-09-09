@@ -8,7 +8,7 @@ class StorageOnDatabase{
     }
 
     
-    function SelectAllTarefas(){
+    public function SelectAllTarefas(){
         $sqlBusca = 'SELECT * FROM tarefas';
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
@@ -17,22 +17,32 @@ class StorageOnDatabase{
             $tarefas[] = $tarefa;
         }
         
-        return $tarefas;
+        return $this->BuildTarefasFromDatabase($tarefas);
     }
-    function Insert($tarefa){
+
+    private function BuildTarefasFromDatabase($listaTarefas){
+        $tarefasObj = [];
+        foreach($listaTarefas as $tarefa){
+            $tarefasObj[] = new Tarefa($tarefa['id'], $tarefa['nome'], $tarefa['descricao'], $tarefa['prioridade'], $tarefa['prazo'], $tarefa['concluida']);
+        }
+        return $tarefasObj;
+    }
+
+
+    public function Insert($tarefa){
         if($tarefa['concluida'] == "on"){
             $tarefa['concluida'] = 1;
         }else {
             $tarefa['concluida'] = 0;
         }
         $sqlInsert = "INSERT INTO tarefas (nome, descricao, prioridade, prazo, concluida)
-    VALUES(
-    '{$tarefa['nome']}',
-    '{$tarefa['descricao']}',
-    '{$tarefa['prioridade']}',
-    '20240916',
-    '{$tarefa['concluida']}'
-    )";
-    return(mysqli_query($this->conexao, $sqlInsert));
-}
+                        VALUES(
+                        '{$tarefa['nome']}',
+                        '{$tarefa['descricao']}',
+                        '{$tarefa['prioridade']}',
+                        '20240916',
+                        '{$tarefa['concluida']}'
+                    )";
+        return(mysqli_query($this->conexao, $sqlInsert));
+    }
 }

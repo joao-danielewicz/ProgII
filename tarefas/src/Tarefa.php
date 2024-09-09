@@ -18,15 +18,4 @@ class Tarefa{
         $this->prazo = new DateTime($prazo);
         $this->concluida=$concluida;
     }
-
-    public function toArray(){
-        $tarefa = [
-            "nome" => $this->nome,
-            "descricao" => $this->descricao,
-            "prioridade" => $this->prioridade,
-            "prazo" => $this->prazo->format("Y-m-d"),
-            "concluida" => $this->concluida,
-        ];
-        return $tarefa;
-    }
 }
