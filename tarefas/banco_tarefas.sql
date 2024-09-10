@@ -10,6 +10,6 @@ create table tarefas (
     concluida bool
 );
 insert into tarefas (nome, descricao, prioridade, prazo, concluida) values ('teste', 'teste', 'alto', 20240916, false);
-insert into tarefas (nome, descricao, prioridade, prazo, concluida) values ('outro teste', 'mais um teste', 'baixo', 20240927, false);
+insert into tarefas (nome, descricao, prioridade, prazo, concluida) values ('outro teste', 'mais um teste', 'baixo', '2024-09-27', false);
 
 select * from tarefas;

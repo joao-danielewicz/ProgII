@@ -30,7 +30,7 @@ class StorageOnDatabase{
 
 
     public function Insert($tarefa){
-        if($tarefa['concluida'] == "on"){
+        if(isset($tarefa['concluida'])){
             $tarefa['concluida'] = 1;
         }else {
             $tarefa['concluida'] = 0;
@@ -40,7 +40,7 @@ class StorageOnDatabase{
                         '{$tarefa['nome']}',
                         '{$tarefa['descricao']}',
                         '{$tarefa['prioridade']}',
-                        '20240916',
+                        '{$tarefa['prazo']}',
                         '{$tarefa['concluida']}'
                     )";
         return(mysqli_query($this->conexao, $sqlInsert));

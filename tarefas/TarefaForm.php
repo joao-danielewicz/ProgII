@@ -21,7 +21,7 @@ session_start();
 
             <input type="text" name="nome" placeholder="Nome da tarefa" required>
 
-            
+
             <label>Prioridade: </label>
             <input type="radio" value='Alta' name="prioridade" required id="alta">
             <label for="alta">Alta</label>
@@ -29,7 +29,7 @@ session_start();
             <label for="media">Média</label>
             <input type="radio" value='Baixa' name="prioridade" required id="baixa">
             <label for="baixa">Baixa</label>
-            
+
             <input type="text" name="descricao" placeholder="Descricao" required>
 
             <label>Terminar até: </label>
@@ -46,7 +46,6 @@ session_start();
     <table border='1px solid'>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>Descricao</th>
                 <th>Prazo</th>
@@ -57,29 +56,30 @@ session_start();
 
         <tbody>
             <?php
-            if($tarefasController ->GetTarefas() != null):
-            foreach ($tarefasController->GetTarefas() as $tarefa):
+            if ($tarefasController->GetTarefas() != null):
+                foreach ($tarefasController->GetTarefas() as $tarefa):
             ?>
-            <tr>
-                <td><?= $tarefa->id ?></td>
-                <td><?= $tarefa->nome?></td>
-                <td><?= $tarefa->descricao?></td>
-                <td><?= $tarefa->prazo->format('d-m-y')?></td>
-                <td><?= $tarefa->concluida  ? 'Sim' : 'Não'?></td>
-                <td><?= $tarefa->prioridade?></td>         
-            </tr>
+                    <form action="">
+                        <tr>
+                            <input type="hidden" value=<?= $tarefa->id  ?>>
+                            <td><input type="text" value='<?= $tarefa->nome ?>'></td>
+                            <td><input type="text" value='<?= $tarefa->descricao ?>'></td>
+                            <td><input type="date" value='<?= $tarefa->prazo->format('Y-m-d') ?>'></td>
+                            <td><input type="checkbox" value='1' <?= $tarefa->concluida  ? 'checked' : '' ?>></td>
+                            <td>
+                                <?php foreach (['Alta', 'Média', 'Baixa'] as $prioridade): ?>
+                                    <input type="radio" value='<?= $prioridade ?>' name="prioridade" required <?= $tarefa->prioridade == $prioridade ? 'checked' : '' ?>>
+                                    <label><?= $prioridade ?></label>
+                                <?php endforeach; ?>
+                            </td>
+                    </form>
+                    </tr>
             <?php
-            endforeach;
+                endforeach;
             endif;
             ?>
         </tbody>
     </table>
-
-    <?php
-    if (isset($_SESSION['msg'])) {
-        echo ($_SESSION['msg']);
-    }
-    ?>
 </body>
 
 </html>
