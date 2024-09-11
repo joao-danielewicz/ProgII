@@ -8,9 +8,11 @@ if(isset($_POST)){
         $tarefasController->InsertTarefa($_POST);
     }
     if(isset($_POST['editar'])){
+        unset($_POST['editar']);
         $tarefasController->UpdateTarefa($_POST);
     }
     if(isset($_POST['remover'])){
+        unset($_POST['remover']);
         $tarefasController->DeleteTarefa($_POST);
     }
 }

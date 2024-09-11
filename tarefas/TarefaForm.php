@@ -37,8 +37,8 @@ session_start();
 
 
             <label for="concluida">Tarefa completada</label>
-            <input type="checkbox" name="concluida" value="1">
-            <input type="submit" name="enviar">
+            <input type="checkbox" name="concluida" id="concluida" value="1">
+            <input type="submit" name="adicionar">
         </fieldset>
     </form>
 
@@ -73,8 +73,10 @@ session_start();
                                     <label><?= $prioridade ?></label>
                                 <?php endforeach; ?>
                             </td>
-                            <td><button type="submit" name="editar">Editar</button></td>
-                            <td><button type="submit" name="remover">Remover</button></td>
+                            <td>
+                                <button type="submit" name="editar">Editar</button>
+                                <button type="submit" name="remover">Remover</button>
+                            </td>
                     </form>
                     </tr>
             <?php

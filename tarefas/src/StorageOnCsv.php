@@ -6,6 +6,9 @@ class StorageOnCsv{
     private string $path;
     public function __construct(string $path){
         $this->path = $path;
+
+        $fp = fopen($this->path, 'a');
+        fclose($fp);
     }
     
     public function Insert(array $tarefa){
@@ -18,7 +21,6 @@ class StorageOnCsv{
             'concluida' => $tarefa['concluida']
         ];
         
-
         $fp = fopen($this->path, 'a');
         fputcsv($fp, $tarefaCadastro);
         fclose($fp);
@@ -54,5 +56,20 @@ class StorageOnCsv{
         }
         $nextId = max($ids);
         return $nextId+1;
+    }
+
+    public function Delete(array $tarefaToDelete){
+        $tarefas = $this->SelectAllTarefas();
+        unlink($this->path);
+        foreach($tarefas as $tarefa){
+            if($tarefa['id'] != $tarefaToDelete['id']){
+                $this->Insert($tarefa);
+            }
+        }
+    }
+
+    public function Update($post){
+        $this->Delete($post);
+        $this->Insert($post);
     }
 }

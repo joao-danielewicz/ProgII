@@ -29,6 +29,6 @@ class TarefasController{
     }
 
     public function DeleteTarefa($post){
-        return $this->method->Delete($post['id']);
+        return $this->method->Delete($post);
     }
 }

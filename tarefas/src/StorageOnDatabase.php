@@ -44,8 +44,8 @@ class StorageOnDatabase{
         return mysqli_query($this->conexao, $sqlUpdate);
     }
     
-    public function Delete($idTarefa){
-        $sqlDelete = "DELETE FROM tarefas WHERE id = '{$idTarefa}'";
+    public function Delete($tarefa){
+        $sqlDelete = "DELETE FROM tarefas WHERE id = '{$tarefa['id']}'";
         return mysqli_query($this->conexao, $sqlDelete);
     }
 }
