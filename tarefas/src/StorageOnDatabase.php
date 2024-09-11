@@ -17,32 +17,35 @@ class StorageOnDatabase{
             $tarefas[] = $tarefa;
         }
         
-        return $this->BuildTarefasFromDatabase($tarefas);
+        return $tarefas;
     }
-
-    private function BuildTarefasFromDatabase($listaTarefas){
-        $tarefasObj = [];
-        foreach($listaTarefas as $tarefa){
-            $tarefasObj[] = new Tarefa($tarefa['id'], $tarefa['nome'], $tarefa['descricao'], $tarefa['prioridade'], $tarefa['prazo'], $tarefa['concluida']);
-        }
-        return $tarefasObj;
-    }
-
 
     public function Insert($tarefa){
-        if(isset($tarefa['concluida'])){
-            $tarefa['concluida'] = 1;
-        }else {
-            $tarefa['concluida'] = 0;
-        }
         $sqlInsert = "INSERT INTO tarefas (nome, descricao, prioridade, prazo, concluida)
-                        VALUES(
-                        '{$tarefa['nome']}',
-                        '{$tarefa['descricao']}',
-                        '{$tarefa['prioridade']}',
-                        '{$tarefa['prazo']}',
-                        '{$tarefa['concluida']}'
-                    )";
-        return(mysqli_query($this->conexao, $sqlInsert));
+                VALUES(
+                '{$tarefa['nome']}',
+                '{$tarefa['descricao']}',
+                '{$tarefa['prioridade']}',
+                '{$tarefa['prazo']}',
+                '{$tarefa['concluida']}'
+            )";
+        return mysqli_query($this->conexao, $sqlInsert);
+    }
+    
+    public function Update($tarefa){
+        $sqlUpdate = "UPDATE tarefas SET 
+                    nome = '{$tarefa['nome']}',
+                    descricao = '{$tarefa['descricao']}',
+                    prioridade = '{$tarefa['prioridade']}',
+                    prazo = '{$tarefa['prazo']}',
+                    concluida = '{$tarefa['concluida']}'
+                    WHERE
+                    id = '{$tarefa['id']}'";
+        return mysqli_query($this->conexao, $sqlUpdate);
+    }
+    
+    public function Delete($idTarefa){
+        $sqlDelete = "DELETE FROM tarefas WHERE id = '{$idTarefa}'";
+        return mysqli_query($this->conexao, $sqlDelete);
     }
 }

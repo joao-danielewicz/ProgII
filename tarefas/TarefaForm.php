@@ -38,7 +38,7 @@ session_start();
 
             <label for="concluida">Tarefa completada</label>
             <input type="checkbox" name="concluida" value="1">
-            <input type="submit" name="gravar">
+            <input type="submit" name="enviar">
         </fieldset>
     </form>
 
@@ -51,6 +51,7 @@ session_start();
                 <th>Prazo</th>
                 <th>Conclusão</th>
                 <th>Prioridade</th>
+                <th>Opções</th>
             </tr>
         </thead>
 
@@ -59,19 +60,21 @@ session_start();
             if ($tarefasController->GetTarefas() != null):
                 foreach ($tarefasController->GetTarefas() as $tarefa):
             ?>
-                    <form action="">
+                    <form action="src/TarefaAction.php" method="POST">
                         <tr>
-                            <input type="hidden" value=<?= $tarefa->id  ?>>
-                            <td><input type="text" value='<?= $tarefa->nome ?>'></td>
-                            <td><input type="text" value='<?= $tarefa->descricao ?>'></td>
-                            <td><input type="date" value='<?= $tarefa->prazo->format('Y-m-d') ?>'></td>
-                            <td><input type="checkbox" value='1' <?= $tarefa->concluida  ? 'checked' : '' ?>></td>
+                            <input type="hidden" name="id" value=<?= $tarefa->id  ?>>
+                            <td><input type="text" name="nome" value='<?= $tarefa->nome ?>'></td>
+                            <td><input type="text" name="descricao" value='<?= $tarefa->descricao ?>'></td>
+                            <td><input type="date" name="prazo" value='<?= $tarefa->prazo->format('Y-m-d') ?>'></td>
+                            <td><input type="checkbox" name="concluida" value='1' <?= $tarefa->concluida  ? 'checked' : '' ?>></td>
                             <td>
                                 <?php foreach (['Alta', 'Média', 'Baixa'] as $prioridade): ?>
                                     <input type="radio" value='<?= $prioridade ?>' name="prioridade" required <?= $tarefa->prioridade == $prioridade ? 'checked' : '' ?>>
                                     <label><?= $prioridade ?></label>
                                 <?php endforeach; ?>
                             </td>
+                            <td><button type="submit" name="editar">Editar</button></td>
+                            <td><button type="submit" name="remover">Remover</button></td>
                     </form>
                     </tr>
             <?php

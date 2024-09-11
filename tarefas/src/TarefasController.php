@@ -9,11 +9,26 @@ class TarefasController{
         $this->method = $method;
     }
 
-    public function Adicionar($post){
+    public function InsertTarefa($post){
+        $post['concluida'] = isset($post['concluida']) ? 1 : 0;
         $this->method->Insert($post);
     }
     
     public function GetTarefas(){
-        return $this->method->SelectAllTarefas();
+        $listaTarefas = $this->method->SelectAllTarefas();
+        $buildTarefas = [];
+        foreach($listaTarefas as $tarefa){
+            $buildTarefas[] = new Tarefa($tarefa['id'], $tarefa['nome'], $tarefa['descricao'], $tarefa['prioridade'], $tarefa['prazo'], $tarefa['concluida']);
+        }
+        return $buildTarefas;
+    }
+    
+    public function UpdateTarefa($post){
+        $post['concluida'] = isset($post['concluida']) ? 1 : 0;
+        return $this->method->Update($post);
+    }
+
+    public function DeleteTarefa($post){
+        return $this->method->Delete($post['id']);
     }
 }
