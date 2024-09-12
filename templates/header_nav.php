@@ -16,6 +16,9 @@
                             <a type="button" href="/aulas/2208calendario.php" class="list-group-item list-group-item-action">
                                 Aula 22/08
                             </a>
+                            <a type="button" href="/tarefas/TarefaForm.php" class="list-group-item list-group-item-action">
+                                Tarefas
+                            </a>
                         </div>
                     </div>
                 </div>
