@@ -1,6 +1,5 @@
 <?php
 namespace Tarefas;
-use Exception;
 
 class StorageOnCsv{
     private string $path;

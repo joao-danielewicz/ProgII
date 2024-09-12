@@ -17,10 +17,13 @@ class TarefasController{
     public function GetTarefas(){
         $listaTarefas = $this->method->SelectAllTarefas();
         $buildTarefas = [];
-        foreach($listaTarefas as $tarefa){
-            $buildTarefas[] = new Tarefa($tarefa['id'], $tarefa['nome'], $tarefa['descricao'], $tarefa['prioridade'], $tarefa['prazo'], $tarefa['concluida']);
+        if($listaTarefas != null){
+            foreach($listaTarefas as $tarefa){
+                $buildTarefas[] = new Tarefa($tarefa['id'], $tarefa['nome'], $tarefa['descricao'], $tarefa['prioridade'], $tarefa['prazo'], $tarefa['concluida']);
+            }
+            return $buildTarefas;
         }
-        return $buildTarefas;
+        return null;
     }
     
     public function UpdateTarefa($post){
