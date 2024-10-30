@@ -1,5 +1,8 @@
 <?php
-require_once "Tarefa.php";
+namespace Controllers;
+use Models\Tarefa;
+use DateTime;
+
 
 
 class TarefasController{

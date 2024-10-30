@@ -1,5 +1,6 @@
 <?php
-include "config.php";
+namespace Views;
+require "..\config.php";
 session_start();
 
 ?>

@@ -1,4 +1,10 @@
 <?php
+namespace Storage;
+
+require_once "..\Models\Tarefa.php";
+require_once "Utils.php";
+use DateTime;
+
 
 class TarefasOnDatabase{
     private $conexao;
@@ -34,6 +40,12 @@ class TarefasOnDatabase{
 
 
     public function Insert($tarefa){
+        if(!empty($_FILES['midia']['name'])){
+            $tarefa['midia'] = pegarImagem($_FILES);
+        }else{
+            $tarefa['midia'] = null;
+        }
+
         $tarefa['dataAdicao'] = date_format(new DateTime('now'), "Y-m-d");
         $tarefa['nivelEstudo'] = -1;
 

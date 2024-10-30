@@ -1,4 +1,6 @@
 <?php
+namespace Models;
+use DateTime;
 
 class Tarefa{
     public int $id;
