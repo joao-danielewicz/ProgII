@@ -13,11 +13,11 @@ session_start();
 
         <div class="d-flex flex-row gap-3 align-items-center">
             <input class="form-control" type="text" name="pergunta" placeholder="Descrição" required>
-
-            <input class="form-control" type="file" accept="image/*" name="midia" placeholder="Imagem">
+            <input class="form-control" type="text" name="resposta" placeholder="Descrição" required>
+            <input class="form-control" type="file" accept="image/*" name="midiaPergunta" placeholder="Imagem">
+            <input class="form-control" type="file" accept="image/*" name="midiaResposta" placeholder="Imagem">
             <input class="btn btn-primary w-100" type="submit" name="adicionar">
         </div>
-
     </form>
 
     <div class="d-flex flex-column bg-white p-3 rounded round overflow-auto" style="max-height: 400px;">
@@ -29,6 +29,7 @@ session_start();
                 <tr>
                     <th>Assunto</th>
                     <th>Pergunta</th>
+                    <th>Resposta</th>
                     <th>Data de adição</th>
                     <th>Último estudo</th>
                     <th>Próximo estudo</th>
@@ -47,12 +48,14 @@ session_start();
                                 <input type="hidden" name="id" value=<?= $tarefa->id  ?>>
                                 <td><input class="form-control" type="text" name="assunto" value='<?= $tarefa->assunto ?>'></td>
                                 <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->pergunta ?>'></td>
+                                <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->resposta ?>'></td>
                                 <td><input class="form-control" type="date" name="dataAdicao" value='<?= $tarefa->dataAdicao->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="date" name="dataUltimoEstudo" value='<?= $tarefa->dataUltimoEstudo->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="date" name="dataProximoEstudo" value='<?= $tarefa->dataProximoEstudo->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="text" name="nivelEstudo" value='<?= $tarefa->nivelEstudo ?>'></td>
                                 <td><input class="form-control" type="text" name="idCurso" value='<?= $tarefa->idCurso ?>'></td>
-                                <td><img src="data:image/png; base64, <?= base64_encode($tarefa->midia) ?>"/> </td>
+                                <td><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaPergunta) ?>"/> </td>
+                                <td><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaResposta) ?>"/> </td>
                                 <td>
                                     <button type="submit" name="editar" class="btn btn-primary">Salvar alterações</button>
                                     <button type="submit" name="remover" class="btn btn-danger">Remover</button>

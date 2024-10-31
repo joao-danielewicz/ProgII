@@ -6,27 +6,30 @@ class Tarefa{
     public int $id;
     public string $assunto;
     public string $pergunta;
-    public string $midia;
+    public string $resposta;
+    public string $midiaPergunta;
+    public string $midiaResposta;
     public DateTime $dataAdicao;
     public DateTime $dataProximoEstudo;
     public DateTime $dataUltimoEstudo;
     public int $nivelEstudo;
     public int $idCurso;
 
-    public function __construct(string $assunto, string $pergunta,
+    public function __construct(int $id, string $assunto, string $pergunta, string $resposta, string $midiaPergunta, string $midiaResposta,
                                 DateTime $dataAdicao,
                                 DateTime $dataProximoEstudo,
                                 DateTime $dataUltimoEstudo,
-                                int $idCurso,
-                                string $midia, int $nivelEstudo, int $id){
+                                int $idCurso, int $nivelEstudo){
         $this->id=$id;
         $this->assunto=$assunto;
         $this->pergunta=$pergunta;
-        $this->nivelEstudo=$nivelEstudo;
+        $this->resposta=$resposta;
+        $this->midiaPergunta=$midiaPergunta;
+        $this->midiaResposta=$midiaResposta;
         $this->dataAdicao=$dataAdicao;
-        $this->dataUltimoEstudo=$dataUltimoEstudo;
         $this->dataProximoEstudo=$dataProximoEstudo;
-        $this->midia=$midia;
+        $this->dataUltimoEstudo=$dataUltimoEstudo;
         $this->idCurso=$idCurso;
+        $this->nivelEstudo=$nivelEstudo;
     }
 }

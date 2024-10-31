@@ -24,16 +24,21 @@ class TarefasController{
         $buildTarefas = [];
         if($listaTarefas != null){
             foreach($listaTarefas as $tarefa){
-                if(empty($tarefa['midia'])){
-                    $tarefa['midia'] = "";
+                if(empty($tarefa['midiaPergunta'])){
+                    $tarefa['midiaPergunta'] = "";
                 }
+                if(empty($tarefa['midiaResposta'])){
+                    $tarefa['midiaResposta'] = "";
+                }
+                
                 $buildTarefas[] = new Tarefa(
-                    $tarefa['assunto'], $tarefa['pergunta'], 
+                    $tarefa['id'], $tarefa['assunto'], $tarefa['pergunta'], $tarefa['resposta'],
+                    $tarefa['midiaPergunta'], $tarefa['midiaResposta'],
                     new DateTime($tarefa['dataAdicao']),
                     new DateTime($tarefa['dataProximoEstudo']),
                     new DateTime($tarefa['dataUltimoEstudo']),
                     $tarefa['nivelEstudo'],
-                    $tarefa['midia'], $tarefa['nivelEstudo'], $tarefa['id']
+                    $tarefa['nivelEstudo']
                 );
             }
             return $buildTarefas;

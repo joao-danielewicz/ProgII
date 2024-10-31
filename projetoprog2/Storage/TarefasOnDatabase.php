@@ -40,21 +40,29 @@ class TarefasOnDatabase{
 
 
     public function Insert($tarefa){
-        if(!empty($_FILES['midia']['name'])){
-            $tarefa['midia'] = pegarImagem($_FILES);
+        if(!empty($_FILES['midiaPergunta']['name'])){
+            $tarefa['midiaPergunta'] = pegarImagem($_FILES['midiaPergunta']);
         }else{
-            $tarefa['midia'] = null;
+            $tarefa['midiaPergunta'] = null;
+        }
+
+        if(!empty($_FILES['midiaResposta']['name'])){
+            $tarefa['midiaResposta'] = pegarImagem($_FILES['midiaResposta']);
+        }else{
+            $tarefa['midiaResposta'] = null;
         }
 
         $tarefa['dataAdicao'] = date_format(new DateTime('now'), "Y-m-d");
         $tarefa['nivelEstudo'] = -1;
 
-        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, dataadicao, midia, nivelestudo)
+        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, resposta, dataadicao, midiapergunta, midiaresposta, nivelestudo)
                 VALUES(
                     '{$tarefa['assunto']}',
                     '{$tarefa['pergunta']}',                    
+                    '{$tarefa['resposta']}',                    
                     '{$tarefa['dataAdicao']}',
-                    '{$tarefa['midia']}',
+                    '{$tarefa['midiaPergunta']}',
+                    '{$tarefa['midiaResposta']}',
                     '{$tarefa['nivelEstudo']}'
                     
             )";
@@ -65,7 +73,9 @@ class TarefasOnDatabase{
         $sqlUpdate = "UPDATE tarefas SET 
                     assunto = '{$tarefa['assunto']}',
                     pergunta = '{$tarefa['pergunta']}',
-                    midia = '{$tarefa['midia']}',
+                    resposta = '{$tarefa['resposta']}',
+                    midiaPergunta = '{$tarefa['midiaPergunta']}',
+                    midiaResposta = '{$tarefa['midiaResposta']}',
                     dataadicao = '{$tarefa['dataadicao']}',
                     dataproximoestudo = '{$tarefa['dataproximoestudo']}',
                     dataultimoestudo = '{$tarefa['dataultimoestudo']}',

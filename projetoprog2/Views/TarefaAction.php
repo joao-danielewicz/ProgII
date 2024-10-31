@@ -17,4 +17,4 @@ if(isset($_POST)){
         $tarefasController->DeleteTarefa($_POST);
     }
 }
-header('location: TarefaView.php');
+// header('location: TarefaView.php');
