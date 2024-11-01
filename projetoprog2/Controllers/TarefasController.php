@@ -15,7 +15,7 @@ class TarefasController{
     }
 
     public function InsertTarefa($tarefa){
-        // $tarefa = $this->scheduler->CadastroTarefa($tarefa);
+        $tarefa = $this->scheduler->CadastroTarefa($tarefa);
         $this->method->Insert($tarefa);
     }
     
@@ -32,13 +32,13 @@ class TarefasController{
                 }
                 
                 $buildTarefas[] = new Tarefa(
-                    $tarefa['id'], $tarefa['assunto'], $tarefa['pergunta'], $tarefa['resposta'],
+                    $tarefa['idTarefa'], $tarefa['assunto'], $tarefa['pergunta'], $tarefa['resposta'],
                     $tarefa['midiaPergunta'], $tarefa['midiaResposta'],
                     new DateTime($tarefa['dataAdicao']),
                     new DateTime($tarefa['dataProximoEstudo']),
                     new DateTime($tarefa['dataUltimoEstudo']),
                     $tarefa['nivelEstudo'],
-                    $tarefa['nivelEstudo']
+                    $tarefa['idCurso']
                 );
             }
             return $buildTarefas;

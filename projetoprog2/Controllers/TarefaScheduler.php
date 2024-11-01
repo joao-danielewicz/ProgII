@@ -16,7 +16,7 @@ class TarefaScheduler{
         $tarefa['nivelEstudo'] = -1;
         $tarefa['dataAdicao'] = date_format(new DateTime('now'), "Y-m-d");
         $tarefa['dataUltimoEstudo'] = null;
-        $tarefa['dataProximoEstudo'] = $this->GetProximaDataEstudo($tarefa);        
+        $tarefa['dataProximoEstudo'] = null;        
         
         return $tarefa;
     }

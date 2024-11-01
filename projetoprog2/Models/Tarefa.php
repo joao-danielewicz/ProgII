@@ -3,7 +3,7 @@ namespace Models;
 use DateTime;
 
 class Tarefa{
-    public int $id;
+    public int $idTarefa;
     public string $assunto;
     public string $pergunta;
     public string $resposta;
@@ -15,12 +15,12 @@ class Tarefa{
     public int $nivelEstudo;
     public int $idCurso;
 
-    public function __construct(int $id, string $assunto, string $pergunta, string $resposta, string $midiaPergunta, string $midiaResposta,
+    public function __construct(int $idTarefa, string $assunto, string $pergunta, string $resposta, string $midiaPergunta, string $midiaResposta,
                                 DateTime $dataAdicao,
                                 DateTime $dataProximoEstudo,
                                 DateTime $dataUltimoEstudo,
-                                int $idCurso, int $nivelEstudo){
-        $this->id=$id;
+                                int $nivelEstudo, int $idCurso){
+        $this->idTarefa=$idTarefa;
         $this->assunto=$assunto;
         $this->pergunta=$pergunta;
         $this->resposta=$resposta;
@@ -29,7 +29,7 @@ class Tarefa{
         $this->dataAdicao=$dataAdicao;
         $this->dataProximoEstudo=$dataProximoEstudo;
         $this->dataUltimoEstudo=$dataUltimoEstudo;
-        $this->idCurso=$idCurso;
         $this->nivelEstudo=$nivelEstudo;
+        $this->idCurso=$idCurso;
     }
 }

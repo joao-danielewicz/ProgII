@@ -45,7 +45,7 @@ session_start();
                 ?>
                         <form action="TarefaAction.php" method="POST">
                             <tr>
-                                <input type="hidden" name="id" value=<?= $tarefa->id  ?>>
+                                <input type="hidden" name="id" value=<?= $tarefa->idTarefa  ?>>
                                 <td><input class="form-control" type="text" name="assunto" value='<?= $tarefa->assunto ?>'></td>
                                 <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->pergunta ?>'></td>
                                 <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->resposta ?>'></td>

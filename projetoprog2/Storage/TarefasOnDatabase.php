@@ -52,10 +52,7 @@ class TarefasOnDatabase{
             $tarefa['midiaResposta'] = null;
         }
 
-        $tarefa['dataAdicao'] = date_format(new DateTime('now'), "Y-m-d");
-        $tarefa['nivelEstudo'] = -1;
-
-        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, resposta, dataadicao, midiapergunta, midiaresposta, nivelestudo)
+        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, resposta, dataadicao, midiapergunta, midiaresposta, nivelestudo, idcurso)
                 VALUES(
                     '{$tarefa['assunto']}',
                     '{$tarefa['pergunta']}',                    
@@ -63,8 +60,8 @@ class TarefasOnDatabase{
                     '{$tarefa['dataAdicao']}',
                     '{$tarefa['midiaPergunta']}',
                     '{$tarefa['midiaResposta']}',
-                    '{$tarefa['nivelEstudo']}'
-                    
+                    '{$tarefa['nivelEstudo']}',
+                    '{$tarefa['idCurso']}',
             )";
         return mysqli_query($this->conexao, $sqlInsert);
     }
@@ -88,7 +85,7 @@ class TarefasOnDatabase{
 
     
     public function Delete($tarefa){
-        $sqlDelete = "DELETE FROM tarefas WHERE id = '{$tarefa['id']}'";
+        $sqlDelete = "DELETE FROM tarefas WHERE idTarefa = '{$tarefa['idTarefa']}'";
         return mysqli_query($this->conexao, $sqlDelete);
     }
 }
