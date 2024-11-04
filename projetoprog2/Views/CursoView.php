@@ -36,8 +36,8 @@ session_start();
 
             <tbody>
                 <?php
-                if ($cursosController->GetCursos() != null):
-                    foreach ($cursosController->GetCursos() as $curso):
+                if ($cursosController->GetCursos($_SESSION['usuario']->idUsuario) != null):
+                    foreach ($cursosController->GetCursos($_SESSION['usuario']->idUsuario) as $curso):
                 ?>
                         <form action="CursoAction.php" method="POST">
                             <tr>

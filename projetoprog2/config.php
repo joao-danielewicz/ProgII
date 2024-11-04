@@ -1,4 +1,5 @@
 <?php
+
 require_once "Controllers/TarefaScheduler.php";
 require_once "Controllers/TarefasController.php";
 require_once "Controllers/CursosController.php";

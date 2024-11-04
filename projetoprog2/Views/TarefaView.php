@@ -1,7 +1,6 @@
 <?php
 namespace Views;
 require "..\config.php";
-session_start();
 
 ?>
 <div class="d-flex flex-column align-self-start mt-5 mb-3 mx-auto">

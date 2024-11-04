@@ -1,5 +1,6 @@
 <?php
 namespace Controllers;
+
 use Models\Usuario;
 
 class UsuariosController{
@@ -9,19 +10,24 @@ class UsuariosController{
         $this->method = $method;
     }
 
-    public function InsertCurso($usuario){
+    public function InsertUsuario($usuario){
         $this->method->Insert($usuario);
     }
     
-    public function VerificarLogin($email){
-        return $this->method->ValidarLogin($email);
+    public function VerificarLogin($login){
+        $usuario = $this->method->ValidarLogin($login);
+        if($usuario){
+            session_start();
+            $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email']);
+        }
+        return $usuario;
     }
     
-    public function UpdateCurso($post){
+    public function UpdateUsuario($post){
         return $this->method->Update($post);
     }
 
-    public function DeleteCurso($post){
+    public function DeleteUsuario($post){
         return $this->method->Delete($post);
     }
 }

@@ -16,8 +16,8 @@ class CursosController{
         $this->method->Insert($curso);
     }
     
-    public function GetCursos(){
-        $listaCursos = $this->method->SelectAllCursos();
+    public function GetCursos($idUsuario){
+        $listaCursos = $this->method->SelectAllCursos($idUsuario);
         $buildCursos = [];
         if($listaCursos != null){
             foreach($listaCursos as $curso){

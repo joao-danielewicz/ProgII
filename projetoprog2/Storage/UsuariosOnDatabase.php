@@ -12,23 +12,34 @@ class UsuariosOnDatabase{
     public function __construct($bdServidor = 'localhost', $bdUsuario = 'root', $bdSenha = 'root', $bdBanco = 'tarefas', $port = '3306'){
         $this->conexao = mysqli_connect($bdServidor, $bdUsuario, $bdSenha, $bdBanco, $port);
     }
-    
-    private function VerificarLogin($email){
-        $sqlBusca = "SELECT email FROM usuarios WHERE usuarios.email = '{$email}'";
-        $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
-        $email = mysqli_fetch_assoc($resultado);        
-        return $email;
-    }
 
-    public function ValidarLogin($email){
-        if($this->VerificarLogin($email)!=null){
-            return true;
-        }else{
+    private function EncryptPassword($senha){
+        return (hash_pbkdf2("sha256", $senha, 'sdgb4433bn6bsfwbsf', 60000));
+    }
+    
+    private function VerificarLogin($login){
+        $sqlBusca = "SELECT * FROM usuarios WHERE usuarios.email = '{$login['email']}'";
+        $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
+        $usuario = mysqli_fetch_assoc($resultado);   
+
+        if(!$usuario){
             return false;
         }
+        if($this->EncryptPassword($login['senha']) !== $usuario['senha'] ){
+            return false;
+        }
+
+        unset($usuario['senha']);
+        return $usuario;
+    }
+
+    public function ValidarLogin($login){
+        $usuario = $this->VerificarLogin($login);
+        return $usuario;
     }
 
     public function Insert($usuario){
+        $usuario['senha'] = $this->EncryptPassword($usuario['senha']);
         $sqlInsert = "INSERT INTO usuarios (nome, email, senha)
                 VALUES(
                     '{$usuario['nome']}',

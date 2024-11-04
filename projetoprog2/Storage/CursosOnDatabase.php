@@ -14,8 +14,8 @@ class CursosOnDatabase{
     }
     
     
-    public function SelectAllCursos(){
-        $sqlBusca = 'SELECT * FROM cursos';
+    public function SelectAllCursos($idUsuario){
+        $sqlBusca = "SELECT * FROM cursos WHERE cursos.idusuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
         $cursos = [];
