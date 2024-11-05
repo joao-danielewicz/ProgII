@@ -15,6 +15,7 @@ require "..\config.php";
             <input class="form-control" type="text" name="resposta" placeholder="Descrição" required>
             <input class="form-control" type="file" accept="image/*" name="midiaPergunta" placeholder="Imagem">
             <input class="form-control" type="file" accept="image/*" name="midiaResposta" placeholder="Imagem">
+            <input class="form-control" type="number" name="idCurso" hidden value='2'>
             <input class="btn btn-primary w-100" type="submit" name="adicionar">
         </div>
     </form>
@@ -39,22 +40,22 @@ require "..\config.php";
 
             <tbody>
                 <?php
-                if ($tarefasController->GetTarefas() != null):
-                    foreach ($tarefasController->GetTarefas() as $tarefa):
+                if ($tarefasController->GetTarefas(1) != null):
+                    foreach ($tarefasController->GetTarefas(1) as $tarefa):
                 ?>
                         <form action="TarefaAction.php" method="POST">
                             <tr>
-                                <input type="hidden" name="id" value=<?= $tarefa->idTarefa  ?>>
+                                <input type="hidden" name="idTarefa" value=<?= $tarefa->idTarefa  ?>>
                                 <td><input class="form-control" type="text" name="assunto" value='<?= $tarefa->assunto ?>'></td>
                                 <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->pergunta ?>'></td>
-                                <td><input class="form-control" type="text" name="pergunta" value='<?= $tarefa->resposta ?>'></td>
+                                <td><input class="form-control" type="text" name="resposta" value='<?= $tarefa->resposta ?>'></td>
                                 <td><input class="form-control" type="date" name="dataAdicao" value='<?= $tarefa->dataAdicao->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="date" name="dataUltimoEstudo" value='<?= $tarefa->dataUltimoEstudo->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="date" name="dataProximoEstudo" value='<?= $tarefa->dataProximoEstudo->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="text" name="nivelEstudo" value='<?= $tarefa->nivelEstudo ?>'></td>
                                 <td><input class="form-control" type="text" name="idCurso" value='<?= $tarefa->idCurso ?>'></td>
-                                <td><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaPergunta) ?>"/> </td>
-                                <td><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaResposta) ?>"/> </td>
+                                <td><input value="<?php echo($tarefa->midiaPergunta) ?>" hidden name="midiaPergunta"><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaPergunta) ?>"/> </td>
+                                <td><input value="<?php echo($tarefa->midiaPergunta) ?>" hidden name="midiaResposta"><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaResposta) ?>"/> </td>
                                 <td>
                                     <button type="submit" name="editar" class="btn btn-primary">Salvar alterações</button>
                                     <button type="submit" name="remover" class="btn btn-danger">Remover</button>

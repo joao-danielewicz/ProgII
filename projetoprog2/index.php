@@ -1,2 +1,2 @@
 <?php
-echo(hash_pbkdf2("sha256", "ASDFghj89!", 'sdgb4433bn6bsfwbsf', 60000));
+echo(hash_pbkdf2("sha256", "123", 'sdgb4433bn6bsfwbsf', 60000));

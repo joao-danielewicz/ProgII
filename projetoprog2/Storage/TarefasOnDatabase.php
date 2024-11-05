@@ -14,8 +14,8 @@ class TarefasOnDatabase{
     }
     
     
-    public function SelectAllTarefas(){
-        $sqlBusca = 'SELECT * FROM tarefas';
+    public function SelectAllTarefas($idCurso){
+        $sqlBusca = "SELECT * FROM tarefas WHERE tarefas.idCurso = '{$idCurso}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
         $tarefas = [];
@@ -61,25 +61,21 @@ class TarefasOnDatabase{
                     '{$tarefa['midiaPergunta']}',
                     '{$tarefa['midiaResposta']}',
                     '{$tarefa['nivelEstudo']}',
-                    '{$tarefa['idCurso']}',
+                    '{$tarefa['idCurso']}'
             )";
         return mysqli_query($this->conexao, $sqlInsert);
     }
     
     public function Update($tarefa){
+        var_dump($tarefa);
         $sqlUpdate = "UPDATE tarefas SET 
                     assunto = '{$tarefa['assunto']}',
                     pergunta = '{$tarefa['pergunta']}',
                     resposta = '{$tarefa['resposta']}',
                     midiaPergunta = '{$tarefa['midiaPergunta']}',
-                    midiaResposta = '{$tarefa['midiaResposta']}',
-                    dataadicao = '{$tarefa['dataadicao']}',
-                    dataproximoestudo = '{$tarefa['dataproximoestudo']}',
-                    dataultimoestudo = '{$tarefa['dataultimoestudo']}',
-                    nivelestudo = '{$tarefa['nivelestudo']}'
-                    idcurso = '{$tarefa['idcurso']}'
+                    midiaResposta = '{$tarefa['midiaResposta']}'
                     WHERE
-                    id = '{$tarefa['id']}'";
+                    idTarefa = '{$tarefa['idTarefa']}'";
         return mysqli_query($this->conexao, $sqlUpdate);
     }
 

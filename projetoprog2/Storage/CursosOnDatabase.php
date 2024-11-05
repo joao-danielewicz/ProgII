@@ -3,7 +3,7 @@ namespace Storage;
 
 require_once "..\Models\Curso.php";
 require_once "Utils.php";
-use DateTime;
+
 
 
 class CursosOnDatabase{
@@ -27,7 +27,8 @@ class CursosOnDatabase{
     }
 
     public function Insert($curso){
-        $curso['idUsuario'] = 1;
+        session_start();
+        $curso['idUsuario'] = $_SESSION['usuario']->idUsuario;
         $sqlInsert = "INSERT INTO cursos (nome, areaConhecimento, quantidadeNovasTarefas, idUsuario)
                         VALUES(
                         '{$curso['nome']}',

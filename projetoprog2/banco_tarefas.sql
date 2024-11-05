@@ -40,6 +40,10 @@ insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'ou
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('teste', 'teste', 'teste', -1, 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', -1, 2);
+
+insert into usuarios(nome, email, senha) values ('joao', 'joao', '52aa854c0120218c02dad358eb436f4a0e8a584d150c00cf36f2e590aed2a3dd');
+insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 2);
+
 select * from tarefas;
 
 select * from cursos;

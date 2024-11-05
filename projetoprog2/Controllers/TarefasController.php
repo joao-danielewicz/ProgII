@@ -19,8 +19,8 @@ class TarefasController{
         $this->method->Insert($tarefa);
     }
     
-    public function GetTarefas(){
-        $listaTarefas = $this->method->SelectAllTarefas();
+    public function GetTarefas($idCurso){
+        $listaTarefas = $this->method->SelectAllTarefas($idCurso);
         $buildTarefas = [];
         if($listaTarefas != null){
             foreach($listaTarefas as $tarefa){
