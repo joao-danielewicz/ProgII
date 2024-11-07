@@ -13,4 +13,21 @@ create table tarefas (
     idcurso int null
 );
 
+
+create table respostas (
+	id int not null auto_increment primary key,
+    respostaCcorreta text not null,
+    midia longblob null,
+    isMultiplaEscolha bool not null default 0,
+    idTarefa int not null,
+    constraint fk_id_tarefa foreign key(idTarefa) references tarefas(id)
+);
+
+create table opcoesResposta (
+	id int not null auto_increment primary key,
+    descricao text not null,
+    idResposta int not null,
+    constraint fk_id_resposta foreign key(idResposta) references respostas(id)
+);
+
 select * from tarefas;
