@@ -12,12 +12,39 @@ class TarefaScheduler{
     }
 
     public function CadastroTarefa($tarefa){
-
-        $tarefa['nivelEstudo'] = -1;
+        $tarefa['nivelEstudo'] = 0;
         $tarefa['dataAdicao'] = date_format(new DateTime('now'), "Y-m-d");
-        $tarefa['dataUltimoEstudo'] = null;
-        $tarefa['dataProximoEstudo'] = null;        
+        $tarefa['dataUltimoEstudo'] = date_format(new DateTime('now'), "Y-m-d");
+        $tarefa['dataProximoEstudo'] = $this->GetProximaDataEstudo($tarefa);        
         
+        return $tarefa;
+    }
+
+    private function SetNivelEstudo($dificuldade){
+        if($dificuldade == 'dificil'){
+            return -1; 
+        }
+        if($dificuldade == "facil"){
+            return 1;
+        }
+    }
+
+
+    public function Estudar($tarefa){
+        if($tarefa['estudar'] == "dificil"){
+            if($tarefa['nivelEstudo'] != 0){
+                $tarefa['nivelEstudo'] --;
+            }
+        }else if($tarefa['estudar'] == "facil"){
+            $tarefa['nivelEstudo'] ++;
+        }
+
+
+        $tarefa['dataUltimoEstudo'] = date_format(new DateTime('now'), "Y-m=d");
+        $tarefa['dataProximoEstudo'] = $this->GetProximaDataEstudo($tarefa);
+
+        unset($tarefa['estudar']);
+        var_dump($tarefa);
         return $tarefa;
     }
 }

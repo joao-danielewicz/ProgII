@@ -53,4 +53,9 @@ class TarefasController{
     public function DeleteTarefa($post){
         return $this->method->Delete($post);
     }
+
+    public function EstudarTarefa($post){
+        $tarefa = $this->scheduler->Estudar($post);
+        return $this->UpdateTarefa($tarefa);
+    }
 }

@@ -40,8 +40,9 @@ require "..\config.php";
 
             <tbody>
                 <?php
-                if ($tarefasController->GetTarefas(1) != null):
-                    foreach ($tarefasController->GetTarefas(1) as $tarefa):
+                session_start();
+                if ($tarefasController->GetTarefas($_SESSION['usuario']->idUsuario) != null):
+                    foreach ($tarefasController->GetTarefas($_SESSION['usuario']->idUsuario) as $tarefa):
                 ?>
                         <form action="TarefaAction.php" method="POST">
                             <tr>
@@ -54,11 +55,13 @@ require "..\config.php";
                                 <td><input class="form-control" type="date" name="dataProximoEstudo" value='<?= $tarefa->dataProximoEstudo->format('Y-m-d') ?>'></td>
                                 <td><input class="form-control" type="text" name="nivelEstudo" value='<?= $tarefa->nivelEstudo ?>'></td>
                                 <td><input class="form-control" type="text" name="idCurso" value='<?= $tarefa->idCurso ?>'></td>
-                                <td><input value="<?php echo($tarefa->midiaPergunta) ?>" hidden name="midiaPergunta"><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaPergunta) ?>"/> </td>
-                                <td><input value="<?php echo($tarefa->midiaPergunta) ?>" hidden name="midiaResposta"><img src="data:image/png; base64, <?= base64_encode($tarefa->midiaResposta) ?>"/> </td>
+                                <!-- <td><input value="" hidden name="midiaPergunta"><img src="data:image/png; base64, ?= base64_encode($tarefa->midiaPergunta) ?>"/> </td> -->
+                                <!-- <td><input value="" hidden name="midiaResposta"><img src="data:image/png; base64, ?= base64_encode($tarefa->midiaResposta) ?>"/> </td> -->
                                 <td>
                                     <button type="submit" name="editar" class="btn btn-primary">Salvar alterações</button>
                                     <button type="submit" name="remover" class="btn btn-danger">Remover</button>
+                                    <button type="submit" name="estudar" value="facil" class="btn btn-danger">Fácil</button>
+                                    <button type="submit" name="estudar" value="dificil" class="btn btn-danger">Difícil</button>
                                 </td>
                         </form>
                         </tr>

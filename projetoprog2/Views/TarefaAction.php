@@ -16,5 +16,9 @@ if(isset($_POST)){
         unset($_POST['remover']);
         $tarefasController->DeleteTarefa($_POST);
     }
+    if(isset($_POST['estudar'])){
+        // unset($_POST['estudar']);
+        $tarefasController->EstudarTarefa($_POST);
+    }
 }
-header('location: TarefaView.php');
+// header('location: TarefaView.php');

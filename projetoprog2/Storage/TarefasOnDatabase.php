@@ -38,8 +38,7 @@ class TarefasOnDatabase{
         return $tarefas;
     }
 
-
-    public function Insert($tarefa){
+    private function pegarImagens($tarefa){
         if(!empty($_FILES['midiaPergunta']['name'])){
             $tarefa['midiaPergunta'] = pegarImagem($_FILES['midiaPergunta']);
         }else{
@@ -51,13 +50,20 @@ class TarefasOnDatabase{
         }else{
             $tarefa['midiaResposta'] = null;
         }
+        return $tarefa;
+    }
 
-        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, resposta, dataadicao, midiapergunta, midiaresposta, nivelestudo, idcurso)
+    public function Insert($tarefa){
+        $tarefa = $this->pegarImagens($tarefa);
+
+        $sqlInsert = "INSERT INTO tarefas (assunto, pergunta, resposta, dataadicao, dataultimoestudo, dataproximoestudo, midiapergunta, midiaresposta, nivelestudo, idcurso)
                 VALUES(
                     '{$tarefa['assunto']}',
                     '{$tarefa['pergunta']}',                    
                     '{$tarefa['resposta']}',                    
                     '{$tarefa['dataAdicao']}',
+                    '{$tarefa['dataUltimoEstudo']}',
+                    '{$tarefa['dataProximoEstudo']}',
                     '{$tarefa['midiaPergunta']}',
                     '{$tarefa['midiaResposta']}',
                     '{$tarefa['nivelEstudo']}',
@@ -68,12 +74,18 @@ class TarefasOnDatabase{
     
     public function Update($tarefa){
         var_dump($tarefa);
+        $tarefa = $this->pegarImagens($tarefa);
+
         $sqlUpdate = "UPDATE tarefas SET 
                     assunto = '{$tarefa['assunto']}',
                     pergunta = '{$tarefa['pergunta']}',
                     resposta = '{$tarefa['resposta']}',
+                    dataadicao = '{$tarefa['dataAdicao']}',
+                    dataproximoestudo = '{$tarefa['dataProximoEstudo']}',
+                    dataultimoestudo = '{$tarefa['dataUltimoEstudo']}',
                     midiaPergunta = '{$tarefa['midiaPergunta']}',
-                    midiaResposta = '{$tarefa['midiaResposta']}'
+                    midiaResposta = '{$tarefa['midiaResposta']}',
+                    nivelEstudo = '{$tarefa['nivelEstudo']}'
                     WHERE
                     idTarefa = '{$tarefa['idTarefa']}'";
         return mysqli_query($this->conexao, $sqlUpdate);
