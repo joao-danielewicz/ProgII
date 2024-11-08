@@ -19,8 +19,7 @@ class TarefasController{
         $this->method->Insert($tarefa);
     }
     
-    public function GetTarefas($idCurso){
-        $listaTarefas = $this->method->SelectAllTarefas($idCurso);
+    private function BuildTarefas($listaTarefas){
         $buildTarefas = [];
         if($listaTarefas != null){
             foreach($listaTarefas as $tarefa){
@@ -44,6 +43,20 @@ class TarefasController{
             return $buildTarefas;
         }
         return null;
+    }
+    public function GetTarefas($idCurso){
+        $listaTarefas = $this->method->SelectAllTarefas($idCurso);
+        return $this->BuildTarefas($listaTarefas);
+    }
+    
+    public function GetTarefasByDate($idCurso, $data){
+        $listaTarefas = $this->method->SelectTarefasByDate($idCurso, $data);
+        return $this->BuildTarefas($listaTarefas);
+    }
+
+    public function GetNovasTarefas($idCurso){
+        $listaTarefas = $this->method->SelectNovasTarefas($idCurso);
+        return $this->BuildTarefas($listaTarefas);
     }
     
     public function UpdateTarefa($post){

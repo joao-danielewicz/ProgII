@@ -41,8 +41,8 @@ require "..\config.php";
             <tbody>
                 <?php
                 session_start();
-                if ($tarefasController->GetTarefas($_SESSION['usuario']->idUsuario) != null):
-                    foreach ($tarefasController->GetTarefas($_SESSION['usuario']->idUsuario) as $tarefa):
+                if ($tarefasController->GetNovasTarefas($_SESSION['usuario']->idUsuario) != null):
+                    foreach ($tarefasController->GetNovasTarefas($_SESSION['usuario']->idUsuario) as $tarefa):
                 ?>
                         <form action="TarefaAction.php" method="POST">
                             <tr>

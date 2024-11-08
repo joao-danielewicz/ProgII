@@ -26,8 +26,26 @@ class TarefasOnDatabase{
         return $tarefas;
     }
     
-    public function SelectNovasTarefas(){
-        $sqlBusca = 'SELECT * FROM tarefas WHERE tarefas.nivelEstudo = -1';
+    public function SelectNovasTarefas($idCurso){
+        $sqlBusca = "SELECT * FROM tarefas WHERE
+                    tarefas.nivelEstudo = 0 AND
+                    tarefas.idCurso = '{$idCurso}' ";
+        $resultado = mysqli_query($this->conexao, $sqlBusca);
+        
+        $tarefas = [];
+        while($tarefa = mysqli_fetch_assoc($resultado)){
+            $tarefas[] = $tarefa;
+        }
+        
+        return $tarefas;
+    }
+
+    public function SelectTarefasByDate($idCurso, $data){
+        $data = date_format($data, "Y-m-d");
+        $sqlBusca = "SELECT * FROM tarefas WHERE 
+                    tarefas.dataProximoEstudo = '{$data}' AND
+                    tarefas.idCurso = '{$idCurso}' ";
+
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
         $tarefas = [];

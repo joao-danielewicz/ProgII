@@ -20,23 +20,15 @@ class TarefaScheduler{
         return $tarefa;
     }
 
-    private function SetNivelEstudo($dificuldade){
-        if($dificuldade == 'dificil'){
-            return -1; 
-        }
-        if($dificuldade == "facil"){
-            return 1;
-        }
-    }
-
-
     public function Estudar($tarefa){
         if($tarefa['estudar'] == "dificil"){
             if($tarefa['nivelEstudo'] != 0){
                 $tarefa['nivelEstudo'] --;
             }
         }else if($tarefa['estudar'] == "facil"){
-            $tarefa['nivelEstudo'] ++;
+            if($tarefa['nivelEstudo'] != 8){
+                $tarefa['nivelEstudo'] ++;
+            }
         }
 
 
@@ -44,7 +36,6 @@ class TarefaScheduler{
         $tarefa['dataProximoEstudo'] = $this->GetProximaDataEstudo($tarefa);
 
         unset($tarefa['estudar']);
-        var_dump($tarefa);
         return $tarefa;
     }
 }

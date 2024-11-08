@@ -21,4 +21,4 @@ if(isset($_POST)){
         $tarefasController->EstudarTarefa($_POST);
     }
 }
-// header('location: TarefaView.php');
+header('location: TarefaView.php');
