@@ -1,13 +1,13 @@
 <?php
-namespace Controllers;
 use Models\Tarefa;
-use DateTime;
 
-
-
-class TarefasController{
+class TarefasController extends RenderView{
     private $method;
     private $scheduler;
+
+    public function index(){
+        $this->loadView('/TarefasView', []);
+    }
 
     public function __construct($method, $scheduler){
         $this->method = $method;

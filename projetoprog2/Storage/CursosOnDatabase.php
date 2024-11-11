@@ -1,5 +1,4 @@
 <?php
-namespace Storage;
 
 require_once "..\Models\Curso.php";
 require_once "Utils.php";
@@ -10,6 +9,7 @@ class CursosOnDatabase{
     private $conexao;
     
     public function __construct($bdServidor = 'localhost', $bdUsuario = 'root', $bdSenha = 'root', $bdBanco = 'tarefas', $port = '3306'){
+        
         $this->conexao = mysqli_connect($bdServidor, $bdUsuario, $bdSenha, $bdBanco, $port);
     }
     

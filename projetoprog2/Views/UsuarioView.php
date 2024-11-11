@@ -3,7 +3,7 @@ namespace Views;
 
 ?>
 <h1><?php echo $title?></h1>
-<form action="UsuarioAction.php" method="post">
+<form action="caduser" method="post">
     <input type="text" name="nome" placeholder="Nome" required>
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="Senha" placeholder="Nome" required>
