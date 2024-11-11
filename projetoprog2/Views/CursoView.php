@@ -1,6 +1,6 @@
 <?php
 namespace Views;
-require "..\config.php";
+// require "..\config.php";
 session_start();
 
 ?>

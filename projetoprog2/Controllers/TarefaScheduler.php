@@ -32,7 +32,7 @@ class TarefaScheduler{
         }
 
 
-        $tarefa['dataUltimoEstudo'] = date_format(new DateTime('now'), "Y-m=d");
+        $tarefa['dataUltimoEstudo'] = date_format(new DateTime('now'), "Y-m-d");
         $tarefa['dataProximoEstudo'] = $this->GetProximaDataEstudo($tarefa);
 
         unset($tarefa['estudar']);

@@ -2,14 +2,17 @@
 namespace Controllers;
 use Models\Curso;
 use DateTime;
-
-
+use Storage\CursosOnDatabase;
 
 class CursosController{
     private $method;
 
-    public function __construct($method){
-        $this->method = $method;
+    public function index(){
+        echo "Cursos";
+    }
+    
+    public function __construct(){
+        $this->method = new CursosOnDatabase();
     }
 
     public function InsertCurso($curso){
@@ -29,7 +32,7 @@ class CursosController{
                     $curso['idUsuario']
                 );
             }
-            return $buildCursos;
+            require_once __DIR__.'/../Views/CursoView.php';
         }
         return null;
     }

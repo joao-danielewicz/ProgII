@@ -22,5 +22,5 @@ if($usuario){
     <input type="text" name="nome" placeholder="Nome" required>
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="Senha" placeholder="Nome" required>
-    <button type="submit" name="editar" class="btn btn-primary">Cadastrar-se</button>
+    <button type="submit" name="adicionar" class="btn btn-primary">Cadastrar-se</button>
 </form>

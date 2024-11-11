@@ -1,2 +1,10 @@
 <?php
-echo(hash_pbkdf2("sha256", "123", 'sdgb4433bn6bsfwbsf', 60000));
+require_once "Router.php";
+
+$router = new Router();
+
+$router->AdicionarRota('GET', '/', [HomeController::class, 'index']);
+$router->AdicionarRota('GET', '/login', [UsuariosController::class, 'index']);
+
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$router->dispatch($path); 
