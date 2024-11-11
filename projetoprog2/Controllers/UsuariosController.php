@@ -1,13 +1,15 @@
 <?php
-namespace Controllers;
-
 use Models\Usuario;
+
 
 class UsuariosController{
     private $method;
 
     public function __construct($method){
         $this->method = $method;
+    }
+    public function index(){
+        echo "users";
     }
 
     public function InsertUsuario($usuario){
