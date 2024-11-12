@@ -21,6 +21,7 @@ class UsuariosController extends RenderView{
     }
 
     public function InsertUsuario($usuario){
+        
         if($this->method->Insert($usuario)){
             header('Location: /login');
         }else {

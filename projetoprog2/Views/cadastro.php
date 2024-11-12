@@ -1,8 +1,10 @@
 <?php
-namespace Views;
-
+if(!is_string($msg)){
+    $msg = '';
+}
 ?>
-<p><?php $msg ?></p>
+<p><?php echo $msg ?></p>
+
 <form action="caduser" method="post">
     <input type="text" name="nome" placeholder="Nome" required>
     <input type="email" name="email" placeholder="Email" required>
