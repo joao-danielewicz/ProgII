@@ -6,21 +6,27 @@ class UsuariosController extends RenderView{
     public function __construct($method){
         $this->method = $method;
     }
-    public function index($msg = ''){
-        $this->loadView('/UsuarioView',
+    public function login($msg = ''){
+        $this->loadView('/login',
         [
-            'title' => 'Login',
+            'msg' => $msg
+        ]);
+    }
+
+    public function cadastro($msg = ''){
+        $this->loadView('/cadastro',
+        [
             'msg' => $msg
         ]);
     }
 
     public function InsertUsuario($usuario){
         if($this->method->Insert($usuario)){
-            $msg = "Cadastro concluído com sucesso.";
+            header('Location: /login');
         }else {
             $msg = "Este e-mail já está em uso.";
+            return $this->cadastro($msg);
         }
-        return $this->index($msg);
     }
 
     public function VerificarLogin($login){
@@ -28,9 +34,9 @@ class UsuariosController extends RenderView{
         if($usuario){
             session_start();
             $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email']);
-            return $this->index('Login bem-sucedido.');
+            header('Location: /');
         }
-        return $this->index('Erro. Verifique seu login.');
+        return $this->login('Erro. Verifique seu login.');
     }
     
     public function UpdateUsuario($post){

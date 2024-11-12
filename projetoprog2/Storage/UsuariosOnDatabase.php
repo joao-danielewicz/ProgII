@@ -29,14 +29,14 @@ class UsuariosOnDatabase{
     private function VerificarSenha($login){
         $usuario = $this->VerificarEmail($login);
         if($usuario){
-            if($this->EncryptPassword($login['senha']) !== $usuario['senha'] ){
-                return false;
+            if($this->EncryptPassword($login['senha']) === $usuario['senha'] ){
+                    unset($usuario['senha']);
+                    return $usuario;
+                }
             }
+            
+            return false;
         }
-
-        unset($usuario['senha']);
-        return $usuario;
-    }
 
     public function ValidarLogin($login){
         $usuario = $this->VerificarSenha($login);

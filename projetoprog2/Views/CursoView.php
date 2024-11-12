@@ -2,7 +2,7 @@
 
 ?>
 <div class="d-flex flex-column align-self-start mt-5 mb-3 mx-auto">
-    <form action="CursoAction.php" method="POST"class="d-flex flex-column bg-white p-3 rounded round mb-3">
+    <form action="cadcurso" method="POST"class="d-flex flex-column bg-white p-3 rounded round mb-3">
         <h4 class="text-center mb-5">Adicionar novo curso</h4>
         <div class="d-flex flex-row gap-3 align-items-center mb-3">
             <input class="form-control" type="text" name="nome" placeholder="Nome do curso" required>

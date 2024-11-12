@@ -8,7 +8,9 @@ class CursosController extends RenderView{
     }
 
     public function index(){
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         $this->loadView('/CursoView', [
             'cursos' => $this->GetCursos($_SESSION['usuario']->idUsuario)
         ]);
@@ -16,6 +18,8 @@ class CursosController extends RenderView{
 
     public function InsertCurso($curso){
         $this->method->Insert($curso);
+        header("Location: /cursos");
+        die();
     }
     
     public function GetCursos($idUsuario){
@@ -23,7 +27,6 @@ class CursosController extends RenderView{
         $buildCursos = [];
         if($listaCursos != null){
             foreach($listaCursos as $curso){
-                
                 $buildCursos[] = new Curso(
                     $curso['idCurso'], $curso['nome'], $curso['areaConhecimento'],
                     new DateTime($curso['dataAdicao']),
@@ -31,7 +34,7 @@ class CursosController extends RenderView{
                     $curso['idUsuario']
                 );
             }
-            require_once __DIR__.'/../Views/CursoView.php';
+            return $buildCursos;
         }
         return null;
     }

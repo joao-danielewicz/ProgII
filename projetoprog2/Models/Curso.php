@@ -1,5 +1,4 @@
 <?php
-use DateTime;
 
 class Curso{
     public int $idCurso;
