@@ -1,5 +1,5 @@
 <?php
-namespace Storage;
+
 
 function pegarImagem(Array $files):string{
     $nome_img = $files['name'];

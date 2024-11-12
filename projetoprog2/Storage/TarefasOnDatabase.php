@@ -1,9 +1,7 @@
 <?php
-namespace Storage;
 
-require_once "..\Models\Tarefa.php";
+use Models\Tarefa;
 require_once "Utils.php";
-use DateTime;
 
 
 class TarefasOnDatabase{

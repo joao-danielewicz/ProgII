@@ -1,7 +1,4 @@
 <?php
-namespace Views;
-// require "..\config.php";
-session_start();
 
 ?>
 <div class="d-flex flex-column align-self-start mt-5 mb-3 mx-auto">
@@ -36,8 +33,8 @@ session_start();
 
             <tbody>
                 <?php
-                if ($cursosController->GetCursos($_SESSION['usuario']->idUsuario) != null):
-                    foreach ($cursosController->GetCursos($_SESSION['usuario']->idUsuario) as $curso):
+                if ($cursos != null):
+                    foreach ($cursos as $curso):
                 ?>
                         <form action="CursoAction.php" method="POST">
                             <tr>

@@ -13,4 +13,4 @@ spl_autoload_register(function($file){
 });
 
 $core = new Core();
-$core->run($routes);
+$core->run($routes, $_POST);

@@ -1,9 +1,7 @@
 <?php
 
-require_once "..\Models\Curso.php";
+use Models\Curso;
 require_once "Utils.php";
-
-
 
 class CursosOnDatabase{
     private $conexao;

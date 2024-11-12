@@ -1,9 +1,7 @@
 <?php
-namespace Storage;
 
-require_once "..\Models\Usuario.php";
+use Models\Usuario;
 require_once "Utils.php";
-use DateTime;
 
 
 class UsuariosOnDatabase{
@@ -17,16 +15,23 @@ class UsuariosOnDatabase{
         return (hash_pbkdf2("sha256", $senha, 'sdgb4433bn6bsfwbsf', 60000));
     }
     
-    private function VerificarLogin($login){
+    private function VerificarEmail($login){
         $sqlBusca = "SELECT * FROM usuarios WHERE usuarios.email = '{$login['email']}'";
         $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
         $usuario = mysqli_fetch_assoc($resultado);   
 
-        if(!$usuario){
-            return false;
+        if($usuario){
+            return $usuario;
         }
-        if($this->EncryptPassword($login['senha']) !== $usuario['senha'] ){
-            return false;
+        return false;
+    }
+
+    private function VerificarSenha($login){
+        $usuario = $this->VerificarEmail($login);
+        if($usuario){
+            if($this->EncryptPassword($login['senha']) !== $usuario['senha'] ){
+                return false;
+            }
         }
 
         unset($usuario['senha']);
@@ -34,19 +39,22 @@ class UsuariosOnDatabase{
     }
 
     public function ValidarLogin($login){
-        $usuario = $this->VerificarLogin($login);
+        $usuario = $this->VerificarSenha($login);
         return $usuario;
     }
 
     public function Insert($usuario){
-        $usuario['senha'] = $this->EncryptPassword($usuario['senha']);
-        $sqlInsert = "INSERT INTO usuarios (nome, email, senha)
-                VALUES(
-                    '{$usuario['nome']}',
-                    '{$usuario['email']}',                    
-                    '{$usuario['senha']}'
-            )";
-        return mysqli_query($this->conexao, $sqlInsert);
+        if(!$this->VerificarEmail($usuario)){
+                $usuario['senha'] = $this->EncryptPassword($usuario['senha']);
+                $sqlInsert = "INSERT INTO usuarios (nome, email, senha)
+                    VALUES(
+                        '{$usuario['nome']}',
+                        '{$usuario['email']}',                    
+                        '{$usuario['senha']}'
+                )";
+            return mysqli_query($this->conexao, $sqlInsert);
+        }
+        return false;
     }
     
     public function Update($tarefa){

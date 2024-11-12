@@ -1,13 +1,17 @@
 <?php
-namespace Controllers;
-use Models\Curso;
-use DateTime;
 
-class CursosController{
+class CursosController extends RenderView{
     private $method;
     
     public function __construct($method){
         $this->method = $method;
+    }
+
+    public function index(){
+        session_start();
+        $this->loadView('/CursoView', [
+            'cursos' => $this->GetCursos($_SESSION['usuario']->idUsuario)
+        ]);
     }
 
     public function InsertCurso($curso){

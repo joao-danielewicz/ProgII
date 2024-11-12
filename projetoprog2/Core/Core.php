@@ -1,7 +1,7 @@
 <?php
 
 class Core{
-    public function run($routes){
+    public function run($routes, $post){
         $url = $_SERVER['REQUEST_URI'];
         ($url != '/') ? $url = rtrim($url, '/') : $url;
 
@@ -18,9 +18,17 @@ class Core{
                 [$currentController, $action] = explode('@', $controller);
 
                 require_once __DIR__."/../Controllers/$currentController.php";
+                $database = str_replace('Controller', '', $currentController) . 'OnDatabase';
                 
-                $newController = new $currentController();
-                $newController->$action($matches);
+                if(file_exists(__DIR__."/../Storage/$database.php")){
+                    require_once __DIR__."/../Storage/$database.php";
+                    $newDatabase = new $database();
+                }else{
+                    $newDatabase = '';
+                }
+
+                $newController = new $currentController($method = $newDatabase);
+                $newController->$action($post);
             }
         }
         
