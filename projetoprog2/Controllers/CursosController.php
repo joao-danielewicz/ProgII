@@ -8,18 +8,23 @@ class CursosController extends RenderView{
     }
 
     public function index(){
-        if(!isset($_SESSION)){
-            session_start();
+        if(empty($_COOKIE)){
+            header('Location: /');
+            die();
         }
+        session_start();
         $this->loadView('/CursoView', [
             'cursos' => $this->GetCursos($_SESSION['usuario']->idUsuario)
         ]);
     }
 
     public function InsertCurso($curso){
-        $this->method->Insert($curso);
-        header("Location: /cursos");
-        die();
+        if(!empty($curso)){
+            $this->method->Insert($curso);
+            header("Location: /cursos");
+            die();
+        }
+        header('Location: /');
     }
     
     public function GetCursos($idUsuario){

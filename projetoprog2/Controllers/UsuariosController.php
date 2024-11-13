@@ -21,21 +21,25 @@ class UsuariosController extends RenderView{
     }
 
     public function InsertUsuario($usuario){
-        
-        if($this->method->Insert($usuario)){
-            header('Location: /login');
-        }else {
-            $msg = "Este e-mail já está em uso.";
-            return $this->cadastro($msg);
+        if(!empty($usuario)){
+            if($this->method->Insert($usuario)){
+                header('Location: /login');
+            }else {
+                $msg = "Este e-mail já está em uso.";
+                return $this->cadastro($msg);
+            }
         }
+        header('Location: /');
     }
 
     public function VerificarLogin($login){
-        $usuario = $this->method->ValidarLogin($login);
-        if($usuario){
-            session_start();
-            $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email']);
-            header('Location: /');
+        if(!empty($login)){
+            $usuario = $this->method->ValidarLogin($login);
+            if($usuario){
+                session_start();
+                $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email']);
+                header('Location: /');
+            }
         }
         return $this->login('Erro. Verifique seu login.');
     }
