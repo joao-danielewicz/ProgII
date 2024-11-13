@@ -1,17 +1,33 @@
 <?php
-use Models\Tarefa;
+require_once "TarefaScheduler.php";
 
 class TarefasController extends RenderView{
     private $method;
     private $scheduler;
 
     public function index(){
-        $this->loadView('/TarefasView', []);
+        if(empty($_COOKIE)){
+            header('Location: /');
+            die();
+        }
+
+        session_start();
+        if(!in_array($_GET['curso'], $_SESSION['usuario']->cursos)){
+            $this->loadView('/TarefaView', [
+                'cursoFound' => false
+            ]);
+        }
+        
+        unset($_SESSION['idcurso']);
+        $this->loadView('/TarefaView', [
+            'cursoFound' => true,
+            'tarefas' => $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario)
+        ]);
     }
 
-    public function __construct($method, $scheduler){
+    public function __construct($method){
         $this->method = $method;
-        $this->scheduler = $scheduler;
+        $this->scheduler = new TarefaScheduler();
     }
 
     public function InsertTarefa($tarefa){
@@ -44,18 +60,18 @@ class TarefasController extends RenderView{
         }
         return null;
     }
-    public function GetTarefas($idCurso){
-        $listaTarefas = $this->method->SelectAllTarefas($idCurso);
+    public function GetTarefas($idCurso, $idUsuario){
+        $listaTarefas = $this->method->SelectAllTarefas($idCurso, $idUsuario);
         return $this->BuildTarefas($listaTarefas);
     }
     
-    public function GetTarefasByDate($idCurso, $data){
-        $listaTarefas = $this->method->SelectTarefasByDate($idCurso, $data);
+    public function GetTarefasByDate($idCurso, $data, $idUsuario){
+        $listaTarefas = $this->method->SelectTarefasByDate($idCurso, $data, $idUsuario);
         return $this->BuildTarefas($listaTarefas);
     }
 
-    public function GetNovasTarefas($idCurso){
-        $listaTarefas = $this->method->SelectNovasTarefas($idCurso);
+    public function GetNovasTarefas($idCurso, $idUsuario){
+        $listaTarefas = $this->method->SelectNovasTarefas($idCurso, $idUsuario);
         return $this->BuildTarefas($listaTarefas);
     }
     

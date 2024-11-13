@@ -2,13 +2,13 @@
 
 class Core{
     public function run($routes, $post){
-        $url = $_SERVER['REQUEST_URI'];
+        isset($_SERVER['PATH_INFO']) ? $url = $_SERVER['PATH_INFO'] : $url = '/';
         ($url != '/') ? $url = rtrim($url, '/') : $url;
 
         $routerFound = false;
-
         foreach($routes as $path => $controller){
-            $pattern = '#^'.preg_replace('/{id}/', '(\w+)', $path).'$#';
+
+            $pattern = '#^'.preg_replace('/{id}/', '([\w+])', $path).'$#';
 
             if(preg_match($pattern, $url, $matches)){
                 array_shift($matches);

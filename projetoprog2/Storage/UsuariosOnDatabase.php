@@ -21,6 +21,10 @@ class UsuariosOnDatabase{
         $usuario = mysqli_fetch_assoc($resultado);   
 
         if($usuario){
+            $sqlBusca = "SELECT idcurso FROM cursos WHERE cursos.idUsuario = '{$usuario['idUsuario']}'";
+            $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
+            $usuario['cursos'] = mysqli_fetch_array($resultado);
+
             return $usuario;
         }
         return false;

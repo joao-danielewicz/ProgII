@@ -1,6 +1,4 @@
 <?php
-namespace Views;
-require "..\config.php";
 
 ?>
 <div class="d-flex flex-column align-self-start mt-5 mb-3 mx-auto">
@@ -22,7 +20,11 @@ require "..\config.php";
 
     <div class="d-flex flex-column bg-white p-3 rounded round overflow-auto" style="max-height: 400px;">
 
-
+        <?php
+            if(!$cursoFound):
+                echo "Curso não encontrado.";
+            else:
+        ?>
         <h4 class="mb-5 text-center">Listagem de tarefas</h4>
         <table class="table text-center">
             <thead>
@@ -40,9 +42,8 @@ require "..\config.php";
 
             <tbody>
                 <?php
-                session_start();
-                if ($tarefasController->GetTarefas(2) != null):
-                    foreach ($tarefasController->GetTarefas(2) as $tarefa):
+                if ($tarefas != null):
+                    foreach ($tarefas as $tarefa):
                 ?>
                         <form action="TarefaAction.php" method="POST">
                             <tr>
@@ -72,5 +73,7 @@ require "..\config.php";
             </tbody>
         </table>
 
+
+        <?php endif ?>
     </div>
 </div>

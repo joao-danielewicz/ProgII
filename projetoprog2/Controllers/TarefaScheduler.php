@@ -1,7 +1,4 @@
 <?php
-namespace Controllers;
-use DateTime;
-use DateInterval;
 
 class TarefaScheduler{
     private function GetProximaDataEstudo($tarefa){

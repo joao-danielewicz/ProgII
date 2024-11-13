@@ -37,7 +37,7 @@ class UsuariosController extends RenderView{
             $usuario = $this->method->ValidarLogin($login);
             if($usuario){
                 session_start();
-                $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email']);
+                $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email'], $usuario['cursos']);
                 header('Location: /');
             }
         }

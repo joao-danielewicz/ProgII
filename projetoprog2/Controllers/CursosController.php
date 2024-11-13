@@ -27,7 +27,7 @@ class CursosController extends RenderView{
         header('Location: /');
     }
     
-    public function GetCursos($idUsuario){
+    private function GetCursos($idUsuario){
         $listaCursos = $this->method->SelectAllCursos($idUsuario);
         $buildCursos = [];
         if($listaCursos != null){

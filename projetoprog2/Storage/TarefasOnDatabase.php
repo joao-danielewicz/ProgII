@@ -12,8 +12,11 @@ class TarefasOnDatabase{
     }
     
     
-    public function SelectAllTarefas($idCurso){
-        $sqlBusca = "SELECT * FROM tarefas WHERE tarefas.idCurso = '{$idCurso}' ";
+    public function SelectAllTarefas($idCurso, $idUsuario){
+        $sqlBusca = "SELECT tarefas.* FROM tarefas INNER JOIN
+                    cursos on tarefas.idCurso = cursos.idCurso WHERE
+                    tarefas.idCurso = '{$idCurso}' AND
+                    cursos.idUsuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
         $tarefas = [];
@@ -24,10 +27,12 @@ class TarefasOnDatabase{
         return $tarefas;
     }
     
-    public function SelectNovasTarefas($idCurso){
-        $sqlBusca = "SELECT * FROM tarefas WHERE
-                    tarefas.nivelEstudo = 0 AND
-                    tarefas.idCurso = '{$idCurso}' ";
+    public function SelectNovasTarefas($idCurso, $idUsuario){
+        $sqlBusca = "SELECT * FROM tarefas INNER JOIN
+                    cursos ON tarefas.idCurso = cursos.idCurso WHERE
+                    tarefas.idCurso = '{$idCurso}' AND
+                    cursos.idUsuario = '{$idUsuario}' AND
+                    tarefas.nivelEstudo = 0";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         
         $tarefas = [];
@@ -38,11 +43,13 @@ class TarefasOnDatabase{
         return $tarefas;
     }
 
-    public function SelectTarefasByDate($idCurso, $data){
+    public function SelectTarefasByDate($idCurso, $data, $idUsuario){
         $data = date_format($data, "Y-m-d");
-        $sqlBusca = "SELECT * FROM tarefas WHERE 
-                    tarefas.dataProximoEstudo = '{$data}' AND
-                    tarefas.idCurso = '{$idCurso}' ";
+        $sqlBusca = "SELECT * FROM tarefas INNER JOIN
+                    cursos ON tarefas.idCurso = cursos.idCurso WHERE
+                    tarefas.idCurso = '{$idCurso}' AND
+                    cursos.idUsuario = '{$idUsuario}' AND
+                    tarefas.dataProximoEstudo = '{$data}' ";
 
         $resultado = mysqli_query($this->conexao, $sqlBusca);
         

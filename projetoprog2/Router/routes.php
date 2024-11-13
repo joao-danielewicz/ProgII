@@ -10,9 +10,9 @@ $routes = [
     '/loginuser' => 'UsuariosController@VerificarLogin',
 
     // Curso
-    '/cursos' => 'CursosController@index',
+    '/meuscursos' => 'CursosController@index',
     '/cadcurso' => 'CursosController@InsertCurso',
 
     // Tarefa
-    '/tarefas' => 'TarefasController@index'
+    '/curso' => 'TarefasController@index'
 ];
