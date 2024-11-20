@@ -31,8 +31,19 @@ class TarefasController extends RenderView{
     }
 
     public function InsertTarefa($tarefa){
-        $tarefa = $this->scheduler->CadastroTarefa($tarefa);
-        $this->method->Insert($tarefa);
+        if(!empty($tarefa)){
+            if(!in_array($tarefa['idCurso'], $_SESSION['usuario']->cursos)){
+                $this->loadView('/TarefaView', [
+                    'cursoFound' => false
+                ]);
+            }
+
+            $tarefa = $this->scheduler->CadastroTarefa($tarefa);
+            $this->method->Insert($tarefa);
+            header("Location: /curso?curso=".$tarefa['idCurso']);
+            die();
+        }
+        header('Location: /');
     }
     
     private function BuildTarefas($listaTarefas){

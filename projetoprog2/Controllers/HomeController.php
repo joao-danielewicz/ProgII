@@ -1,7 +1,9 @@
 <?php
 
-class HomeController{
+class HomeController extends RenderView{
     public function index(){
-        echo "Página inicial";
+        $this->loadView('/homepage', [
+            'titulo' => "RecapPro - Início"
+        ]);
     }
 }

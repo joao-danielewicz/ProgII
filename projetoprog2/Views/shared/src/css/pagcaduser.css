@@ -1,0 +1,21 @@
+/* Estilos da página de cadastro do usuário */
+.form-group{
+    margin-bottom: 25px;
+}
+.form-group label{
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #6a00ad;
+}
+
+button  {
+    border: none;
+    background-color: #6a0dad !important;
+    color: white !important;
+    font-size: 16px !important;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a0d8a !important;
+}

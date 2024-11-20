@@ -24,6 +24,7 @@ class UsuariosController extends RenderView{
         if(!empty($usuario)){
             if($this->method->Insert($usuario)){
                 header('Location: /login');
+                die();
             }else {
                 $msg = "Este e-mail já está em uso.";
                 return $this->cadastro($msg);
@@ -37,7 +38,12 @@ class UsuariosController extends RenderView{
             $usuario = $this->method->ValidarLogin($login);
             if($usuario){
                 session_start();
-                $_SESSION['usuario'] = new Usuario($usuario['idUsuario'], $usuario['nome'], $usuario['email'], $usuario['cursos']);
+                $_SESSION['usuario'] = new Usuario($usuario['idUsuario'],
+                                                $usuario['nome'],
+                                                $usuario['email'],
+                                                $usuario['cursos'],
+                                                new DateTime($usuario['dataNascimento']),
+                                                $usuario['telefone']);
                 header('Location: /');
             }
         }

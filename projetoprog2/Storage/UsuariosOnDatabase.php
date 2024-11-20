@@ -50,11 +50,13 @@ class UsuariosOnDatabase{
     public function Insert($usuario){
         if(!$this->VerificarEmail($usuario)){
                 $usuario['senha'] = $this->EncryptPassword($usuario['senha']);
-                $sqlInsert = "INSERT INTO usuarios (nome, email, senha)
+                $sqlInsert = "INSERT INTO usuarios (nome, email, senha, dataNascimento, telefone)
                     VALUES(
                         '{$usuario['nome']}',
                         '{$usuario['email']}',                    
-                        '{$usuario['senha']}'
+                        '{$usuario['senha']}',
+                        '{$usuario['dataNascimento']}',                    
+                        '{$usuario['telefone']}'                    
                 )";
             return mysqli_query($this->conexao, $sqlInsert);
         }
