@@ -5,7 +5,7 @@ class TarefasController extends RenderView{
     private $method;
     private $scheduler;
 
-    public function index(){
+    public function index($msg = ''){
         if(empty($_COOKIE)){
             header('Location: /');
             die();
@@ -16,12 +16,16 @@ class TarefasController extends RenderView{
         session_abort();
 
         if($tarefas != "Erro."){
-            $this->loadView('/TarefaView', [
+            $this->loadView('/Tarefas/tarefas', [
+                'msg' => $msg,
                 'tarefas' => $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario)
             ]);
             die();
         }else{
-            echo "Erro.";
+            $this->loadView('/Tarefas/tarefas', [
+                'msg' => 'Este curso não pôde ser encontrado. Tente novamente.'
+            ]);
+            die();
         }
     }
 
@@ -32,18 +36,12 @@ class TarefasController extends RenderView{
 
     public function InsertTarefa($tarefa){
         if(!empty($tarefa)){
-            if(!in_array($tarefa['idCurso'], $_SESSION['usuario']->cursos)){
-                $this->loadView('/TarefaView', [
-                    'cursoFound' => false
-                ]);
-            }
-
             $tarefa = $this->scheduler->CadastroTarefa($tarefa);
             $this->method->Insert($tarefa);
-            header("Location: /curso?curso=".$tarefa['idCurso']);
+            header("Location: /tarefas?curso=".$tarefa['idCurso']);
             die();
         }
-        header('Location: /');
+        header("Location: /");
     }
     
     private function BuildTarefas($listaTarefas){

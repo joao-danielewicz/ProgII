@@ -16,6 +16,7 @@ $routes = [
     '/deletecurso' => 'CursosController@DeleteCurso',
 
     // Tarefa
-    '/curso' => 'TarefasController@index',
-    '/cadtarefa' => 'TarefasController@InsertTarefa'
+    '/tarefas' => 'TarefasController@index',
+    '/cadtarefa' => 'TarefasController@InsertTarefa',
+    '/updatetarefa' => 'TarefasController@UpdateTarefa'
 ];

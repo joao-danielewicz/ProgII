@@ -34,7 +34,7 @@ if (!is_string($msg)) {
                 <input class="form-control" type="password" id="senha" name="senha" required>
             </div>
 
-            <button class="btn w-100" type="submit">Entrar</button>
+            <button class="button-roxo btn w-100" type="submit">Entrar</button>
         </form>
     </div>
 </div>

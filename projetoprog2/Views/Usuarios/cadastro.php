@@ -49,7 +49,7 @@ if (!is_string($msg)) {
                 <input class="form-control" type="password" id="senha" name="senha" required>
             </div>
 
-            <button class="btn w-100" type="submit">Cadastrar</button>
+            <button class="button-roxo btn w-100" type="submit">Cadastrar</button>
         </form>
     </div>
 </div>
