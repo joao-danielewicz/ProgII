@@ -21,7 +21,13 @@ class CursosController extends RenderView{
     public function InsertCurso($curso){
         if(!empty($curso)){
             $this->method->Insert($curso);
-            header("Location: /cursos");
+            session_start();
+            $_SESSION['usuario']->cursos = [];
+            foreach($this->GetCursos($_SESSION['usuario']->idUsuario) as $cursos){
+                $_SESSION['usuario']->cursos[] = $cursos->idCurso;
+            }
+
+            header("Location: /meuscursos");
             die();
         }
         header('Location: /');

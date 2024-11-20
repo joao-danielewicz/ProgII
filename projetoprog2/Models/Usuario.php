@@ -10,6 +10,10 @@ class Usuario{
         $this->idUsuario=$idUsuario;
         $this->nome=$nome;
         $this->email=$email;
-        $this->cursos=$cursos;
+        if($cursos == null){
+            $this->cursos = [];
+        }else{
+            $this->cursos = $cursos;
+        }
     }
 }
