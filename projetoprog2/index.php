@@ -11,7 +11,6 @@ spl_autoload_register(function($file){
         require_once __DIR__."/models/$file.php";
     }
 });
-session_start();
-var_dump($_SESSION);
+
 $core = new Core();
 $core->run($routes, $_POST);

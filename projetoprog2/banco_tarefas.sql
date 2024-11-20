@@ -6,6 +6,8 @@ create table usuarios (
 	idUsuario int not null auto_increment primary key,
     nome text not null,
     email text not null,
+    dataNascimento date not null,
+    telefone text not null,
     senha varchar(64) not null
 );
 
@@ -34,16 +36,16 @@ create table tarefas (
     constraint fk_id_curso foreign key(idcurso) references cursos(idCurso)
 );
 
-insert into usuarios(nome, email, senha) values ('joao', 'joao@joao.com', 'f44d03a974b576b7bd08cadfe90da134ba4cff04cd59e1bb547c4eb39b77725f');
+insert into usuarios(nome, email, senha, dataNascimento, telefone) values ('joao', 'joao@joao.com', 'f44d03a974b576b7bd08cadfe90da134ba4cff04cd59e1bb547c4eb39b77725f', 20040916, '49999653313');
 insert into cursos (nome, areaConhecimento, idUsuario) values ('teste', 'teste', 1);
 insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('teste', 'teste', 'teste', -1, 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', -1, 2);
 
-insert into usuarios(nome, email, senha) values ('joao', 'joao', '52aa854c0120218c02dad358eb436f4a0e8a584d150c00cf36f2e590aed2a3dd');
+insert into usuarios(nome, email, senha, dataNascimento, telefone) values ('joao', 'joao', '52aa854c0120218c02dad358eb436f4a0e8a584d150c00cf36f2e590aed2a3dd', 20040916, '49999653313');
 insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 2);
 
 select * from tarefas;
-
+select * from usuarios;
 select * from cursos;
