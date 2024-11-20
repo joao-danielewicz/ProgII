@@ -14,10 +14,7 @@ class Usuario{
         $this->email=$email;
         $this->dataNascimento=$dataNascimento;
         $this->telefone=$telefone;
-        if($cursos == null){
-            $this->cursos = [];
-        }else{
-            $this->cursos = $cursos;
-        }
+        $this->cursos = $cursos;
+       
     }
 }

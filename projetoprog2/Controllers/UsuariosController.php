@@ -7,16 +7,18 @@ class UsuariosController extends RenderView{
         $this->method = $method;
     }
     public function login($msg = ''){
-        $this->loadView('/login',
+        $this->loadView('/Usuarios/login',
         [
-            'msg' => $msg
+            'msg' => $msg,
+            'titulo' => "RecapPro - Entrar"
         ]);
     }
 
     public function cadastro($msg = ''){
-        $this->loadView('/cadastro',
+        $this->loadView('/Usuarios/cadastro',
         [
-            'msg' => $msg
+            'msg' => $msg,
+            'titulo' => "RecapPro - Cadastro"
         ]);
     }
 

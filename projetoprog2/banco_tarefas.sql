@@ -8,7 +8,37 @@ create table usuarios (
     email text not null,
     dataNascimento date not null,
     telefone text not null,
+    qtdPontos int not null default 0,
     senha varchar(64) not null
+);
+
+create table itensCosmeticos(
+	idItem int not null auto_increment primary key,
+    descricao text not null,
+    tipo text not null,
+    midia longblob not null
+);
+
+create table inventarios(
+	idInventario int not null auto_increment primary key,
+    idUsuario int not null,
+    constraint fk_id_usuario_inventario foreign key(idUsuario) references usuarios(idUsuario)
+);
+
+create table itensInventario(
+	idItem int not null,
+    idInventario int not null,
+    primary key(idItem, idInventario),
+    constraint fk_id_item foreign key(idItem) references itensCosmeticos(idItem),
+    constraint fk_id_inventario foreign key(idInventario) references inventarios(idInventario)
+);
+
+create table feedbacks(
+	idFeedback int not null auto_increment primary key,
+    assunto text not null,
+    texto text not null,
+    idUsuario int not null,
+    constraint fk_id_usuario_feedback foreign key(idUsuario) references usuarios(idUsuario)
 );
 
 create table cursos (
@@ -40,12 +70,17 @@ insert into usuarios(nome, email, senha, dataNascimento, telefone) values ('joao
 insert into cursos (nome, areaConhecimento, idUsuario) values ('teste', 'teste', 1);
 insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('teste', 'teste', 'teste', -1, 1);
-insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 1);
+insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 12);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', -1, 2);
 
 insert into usuarios(nome, email, senha, dataNascimento, telefone) values ('joao', 'joao', '52aa854c0120218c02dad358eb436f4a0e8a584d150c00cf36f2e590aed2a3dd', 20040916, '49999653313');
-insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 2);
+insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 3);
 
 select * from tarefas;
 select * from usuarios;
 select * from cursos;
+
+
+
+
+delete from cursos where idCurso = 4;

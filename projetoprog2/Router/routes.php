@@ -12,6 +12,8 @@ $routes = [
     // Curso
     '/meuscursos' => 'CursosController@index',
     '/cadcurso' => 'CursosController@InsertCurso',
+    '/updatecurso' => 'CursosController@UpdateCurso',
+    '/deletecurso' => 'CursosController@DeleteCurso',
 
     // Tarefa
     '/curso' => 'TarefasController@index',

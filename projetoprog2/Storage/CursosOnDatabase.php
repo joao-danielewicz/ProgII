@@ -43,13 +43,17 @@ class CursosOnDatabase{
                     areaConhecimento = '{$curso['areaConhecimento']}',
                     quantidadeNovasTarefas = '{$curso['quantidadeNovasTarefas']}'
                     WHERE
-                    idCurso = '{$curso['idCurso']}'";
+                    idCurso = '{$curso['idCurso']}' AND
+                    idUsuario = '{$curso['idUsuario']}'";
         return mysqli_query($this->conexao, $sqlUpdate);
     }
 
     
     public function Delete($curso){
-        $sqlDelete = "DELETE FROM cursos WHERE idCurso = '{$curso['idCurso']}'";
+        $sqlDelete = "DELETE FROM cursos
+                    WHERE
+                    idCurso = '{$curso['idCurso']}' AND
+                    idUsuario = '{$curso['idUsuario']}'";
         return mysqli_query($this->conexao, $sqlDelete);
     }
 }

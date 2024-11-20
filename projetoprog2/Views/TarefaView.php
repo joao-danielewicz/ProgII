@@ -20,11 +20,7 @@
 
     <div class="d-flex flex-column bg-white p-3 rounded round overflow-auto" style="max-height: 400px;">
 
-        <?php
-            if(!$cursoFound):
-                echo "Curso não encontrado.";
-            else:
-        ?>
+        
         <h4 class="mb-5 text-center">Listagem de tarefas</h4>
         <table class="table text-center">
             <thead>
@@ -73,7 +69,5 @@
             </tbody>
         </table>
 
-
-        <?php endif ?>
     </div>
 </div>

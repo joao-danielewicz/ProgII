@@ -13,52 +13,91 @@ class TarefasOnDatabase{
     
     
     public function SelectAllTarefas($idCurso, $idUsuario){
-        $sqlBusca = "SELECT tarefas.* FROM tarefas INNER JOIN
-                    cursos on tarefas.idCurso = cursos.idCurso WHERE
-                    tarefas.idCurso = '{$idCurso}' AND
+        $sqlBusca = "SELECT cursos.idCurso FROM cursos WHERE 
                     cursos.idUsuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
-        
-        $tarefas = [];
+        $cursosDisponiveis = [];
         while($tarefa = mysqli_fetch_assoc($resultado)){
-            $tarefas[] = $tarefa;
+            $cursosDisponiveis[] = $tarefa['idCurso'];
         }
         
-        return $tarefas;
+
+        if(in_array($idCurso, $cursosDisponiveis)){
+            $sqlBusca = "SELECT tarefas.* FROM tarefas INNER JOIN
+                        cursos on tarefas.idCurso = cursos.idCurso WHERE
+                        tarefas.idCurso = '{$idCurso}' AND
+                        cursos.idUsuario = '{$idUsuario}' ";
+            $resultado = mysqli_query($this->conexao, $sqlBusca);
+            
+            $tarefas = [];
+            while($tarefa = mysqli_fetch_assoc($resultado)){
+                    $tarefas[] = $tarefa;
+                }
+                
+                return $tarefas;
+        }else{
+            return "Erro.";
+        }
     }
     
     public function SelectNovasTarefas($idCurso, $idUsuario){
-        $sqlBusca = "SELECT * FROM tarefas INNER JOIN
-                    cursos ON tarefas.idCurso = cursos.idCurso WHERE
-                    tarefas.idCurso = '{$idCurso}' AND
-                    cursos.idUsuario = '{$idUsuario}' AND
-                    tarefas.nivelEstudo = 0";
+        $sqlBusca = "SELECT cursos.idCurso FROM cursos WHERE 
+                    cursos.idUsuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
-        
-        $tarefas = [];
+        $cursosDisponiveis = [];
         while($tarefa = mysqli_fetch_assoc($resultado)){
-            $tarefas[] = $tarefa;
+            $cursosDisponiveis[] = $tarefa['idCurso'];
         }
         
-        return $tarefas;
+
+        if(in_array($idCurso, $cursosDisponiveis)){
+            $sqlBusca = "SELECT * FROM tarefas INNER JOIN
+                        cursos ON tarefas.idCurso = cursos.idCurso WHERE
+                        tarefas.idCurso = '{$idCurso}' AND
+                        cursos.idUsuario = '{$idUsuario}' AND
+                        tarefas.nivelEstudo = 0";
+            $resultado = mysqli_query($this->conexao, $sqlBusca);
+            
+            $tarefas = [];
+            while($tarefa = mysqli_fetch_assoc($resultado)){
+                $tarefas[] = $tarefa;
+            }
+            
+            return $tarefas;
+        }else{
+            return "Erro.";
+        }
     }
 
     public function SelectTarefasByDate($idCurso, $data, $idUsuario){
-        $data = date_format($data, "Y-m-d");
-        $sqlBusca = "SELECT * FROM tarefas INNER JOIN
-                    cursos ON tarefas.idCurso = cursos.idCurso WHERE
-                    tarefas.idCurso = '{$idCurso}' AND
-                    cursos.idUsuario = '{$idUsuario}' AND
-                    tarefas.dataProximoEstudo = '{$data}' ";
-
+        $sqlBusca = "SELECT cursos.idCurso FROM cursos WHERE 
+                    cursos.idUsuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
-        
-        $tarefas = [];
+        $cursosDisponiveis = [];
         while($tarefa = mysqli_fetch_assoc($resultado)){
-            $tarefas[] = $tarefa;
+            $cursosDisponiveis[] = $tarefa['idCurso'];
         }
         
-        return $tarefas;
+
+        if(in_array($idCurso, $cursosDisponiveis)){
+            $data = date_format($data, "Y-m-d");
+            $sqlBusca = "SELECT * FROM tarefas INNER JOIN
+                        cursos ON tarefas.idCurso = cursos.idCurso WHERE
+                        tarefas.idCurso = '{$idCurso}' AND
+                        cursos.idUsuario = '{$idUsuario}' AND
+                        tarefas.dataProximoEstudo = '{$data}' ";
+
+            $resultado = mysqli_query($this->conexao, $sqlBusca);
+            
+            $tarefas = [];
+            while($tarefa = mysqli_fetch_assoc($resultado)){
+                $tarefas[] = $tarefa;
+            }
+            
+            return $tarefas;
+        }else{
+            return "Erro.";
+        }
     }
 
     private function pegarImagens($tarefa){

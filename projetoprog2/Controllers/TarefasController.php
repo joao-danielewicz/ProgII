@@ -12,17 +12,17 @@ class TarefasController extends RenderView{
         }
 
         session_start();
-        if(!in_array($_GET['curso'], $_SESSION['usuario']->cursos)){
+        $tarefas = $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario);
+        session_abort();
+
+        if($tarefas != "Erro."){
             $this->loadView('/TarefaView', [
-                'cursoFound' => false
+                'tarefas' => $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario)
             ]);
+            die();
+        }else{
+            echo "Erro.";
         }
-        
-        unset($_SESSION['idcurso']);
-        $this->loadView('/TarefaView', [
-            'cursoFound' => true,
-            'tarefas' => $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario)
-        ]);
     }
 
     public function __construct($method){
@@ -73,17 +73,29 @@ class TarefasController extends RenderView{
     }
     public function GetTarefas($idCurso, $idUsuario){
         $listaTarefas = $this->method->SelectAllTarefas($idCurso, $idUsuario);
-        return $this->BuildTarefas($listaTarefas);
+        if($listaTarefas != "Erro."){
+            return $this->BuildTarefas($listaTarefas);
+        }else{
+            return "Erro.";
+        }
     }
     
     public function GetTarefasByDate($idCurso, $data, $idUsuario){
         $listaTarefas = $this->method->SelectTarefasByDate($idCurso, $data, $idUsuario);
-        return $this->BuildTarefas($listaTarefas);
+        if($listaTarefas != "Erro."){
+            return $this->BuildTarefas($listaTarefas);
+        }else{
+            return "Erro.";
+        }
     }
 
     public function GetNovasTarefas($idCurso, $idUsuario){
         $listaTarefas = $this->method->SelectNovasTarefas($idCurso, $idUsuario);
-        return $this->BuildTarefas($listaTarefas);
+        if($listaTarefas != "Erro."){
+            return $this->BuildTarefas($listaTarefas);
+        }else{
+            return "Erro.";
+        }
     }
     
     public function UpdateTarefa($post){

@@ -1,5 +1,4 @@
 <?php
-// var_dump($_SERVER['REQUEST_URI']);
 require_once __DIR__.'/Core/Core.php';
 require_once __DIR__.'/Router/routes.php';
 

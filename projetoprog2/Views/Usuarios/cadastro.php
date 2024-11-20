@@ -1,20 +1,28 @@
 <?php
-require_once "shared/layout/head.php";
+// Importa o cabeçalho com as tags de estilos necessárias
+require_once "Views/shared/layout/head.php";
 if (!is_string($msg)) {
     $msg = '';
 }
 ?>
 
-<link rel="stylesheet" href="/Views/shared/src/css/pagcaduser.css">
+<!-- Cria um título para a página -->
+<title><?php echo($titulo)?></title>
+
+<!-- Importa os estilos pertinentes à página de cadastro e login -->
+<link rel="stylesheet" href="/Views/Usuarios/css/formuser.css">
+
+<!-- Verifica se há alguma mensagem a ser passada ao usuário. Caso positivo, escreve-a. -->
 <?php if(!empty($msg)):?>
     <div class="position-absolute border border-danger rounded round m-3 bg-white p-3 shadow">
         <p class="m-0"><?php echo $msg ?></p>
     </div>
 <?php endif; ?>
 
+<!-- Formulário de recebimento dos dados cadastrais do usuário -->
 <div class="container w-50">
     <div class="border round rounded p-4 pb-5 bg-white shadow mt-3">
-        <h2 class="text-center">Cadastre-se</h2>
+        <h3 class="text-center">Cadastre-se</h3>
         <form action="/caduser" method="post">
             <div class="form-group">
                 <label for="nome">Nome Completo</label>

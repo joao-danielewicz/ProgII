@@ -7,13 +7,15 @@ class CursosController extends RenderView{
         $this->method = $method;
     }
 
-    public function index(){
+    public function index($msg = ''){
         if(empty($_COOKIE)){
             header('Location: /');
             die();
         }
         session_start();
-        $this->loadView('/CursoView', [
+        $this->loadView('/Cursos/meuscursos', [
+            'msg' => $msg,
+            'titulo' => "RecapPro - Cursos",
             'cursos' => $this->GetCursos($_SESSION['usuario']->idUsuario)
         ]);
     }
@@ -21,12 +23,6 @@ class CursosController extends RenderView{
     public function InsertCurso($curso){
         if(!empty($curso)){
             $this->method->Insert($curso);
-            session_start();
-            $_SESSION['usuario']->cursos = [];
-            foreach($this->GetCursos($_SESSION['usuario']->idUsuario) as $cursos){
-                $_SESSION['usuario']->cursos[] = $cursos->idCurso;
-            }
-
             header("Location: /meuscursos");
             die();
         }
@@ -49,12 +45,22 @@ class CursosController extends RenderView{
         }
         return null;
     }
-    
+   
     public function UpdateCurso($post){
-        return $this->method->Update($post);
+        session_start();
+        $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
+        session_abort();
+        $this->method->Update($post);
+        $this->index();
+        die();
     }
 
     public function DeleteCurso($post){
-        return $this->method->Delete($post);
+        session_start();
+        $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
+        session_abort();
+        $this->method->Delete($post);
+        $this->index();
+        die();
     }
 }

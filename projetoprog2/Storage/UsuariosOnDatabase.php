@@ -17,14 +17,10 @@ class UsuariosOnDatabase{
     
     private function VerificarEmail($login){
         $sqlBusca = "SELECT * FROM usuarios WHERE usuarios.email = '{$login['email']}'";
-        $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
+        $resultado = mysqli_query($this->conexao, $sqlBusca);
         $usuario = mysqli_fetch_assoc($resultado);   
 
         if($usuario){
-            $sqlBusca = "SELECT idcurso FROM cursos WHERE cursos.idUsuario = '{$usuario['idUsuario']}'";
-            $resultado = $resultado = mysqli_query($this->conexao, $sqlBusca);
-            $usuario['cursos'] = mysqli_fetch_array($resultado);
-
             return $usuario;
         }
         return false;
@@ -34,6 +30,12 @@ class UsuariosOnDatabase{
         $usuario = $this->VerificarEmail($login);
         if($usuario){
             if($this->EncryptPassword($login['senha']) === $usuario['senha'] ){
+                    $sqlBusca = "SELECT * FROM cursos WHERE cursos.idUsuario = '{$usuario['idUsuario']}'";
+                    $resultado = mysqli_query($this->conexao, $sqlBusca);
+                    $usuario['cursos'] = [];
+                    while($curso = mysqli_fetch_assoc($resultado)){
+                        $usuario['cursos'][] = $curso['idCurso'];
+                    }
                     unset($usuario['senha']);
                     return $usuario;
                 }
