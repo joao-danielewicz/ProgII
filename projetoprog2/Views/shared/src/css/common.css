@@ -20,9 +20,11 @@
 
 body{
     font-family: Lato;
+    background-color: #F0DDFF;
 }
 
 
+/* Estilos do cabeçalho */
 header {
     background: linear-gradient(90deg, #f2d9ff, #2a0055);
     position: sticky;
@@ -34,8 +36,6 @@ header div#titulo{
     font-size: 26px;
 }
 
-header div#opcoes{
-}
 header div#opcoes a{
     color: #f2d9ff;
     text-decoration: none;
@@ -43,3 +43,4 @@ header div#opcoes a{
 header div#opcoes a:hover{
     color: #e0a2ff;
 }
+/* --------------------- */

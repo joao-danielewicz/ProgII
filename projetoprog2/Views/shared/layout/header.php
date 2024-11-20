@@ -6,8 +6,12 @@
             RecapPro
         </div>
         <div id="opcoes">
-            <a class="pe-3 border-end" href="/login">Entrar</a>
-            <a class="ps-3"href="/cadastro">Crie sua conta</a>
+            <?php if(!isset($_SESSION['usuario'])):?>
+                <a class="pe-3 border-end" href="/login">Entrar</a>
+                <a class="ps-3"href="/cadastro">Crie sua conta</a>
+                <?php else: ?>
+                <a class="ps-3"href="/meuscursos">Meus cursos</a>
+            <?php endif; ?>
         </div>
     </div>
 </header>

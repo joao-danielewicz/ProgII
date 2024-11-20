@@ -24,6 +24,7 @@ class UsuariosController extends RenderView{
         if(!empty($usuario)){
             if($this->method->Insert($usuario)){
                 header('Location: /login');
+                die();
             }else {
                 $msg = "Este e-mail já está em uso.";
                 return $this->cadastro($msg);
