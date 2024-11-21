@@ -100,10 +100,18 @@ class TarefasController extends RenderView{
         return $this->method->Update($post);
     }
 
-    public function DeleteTarefa($post){
-        return $this->method->Delete($post);
+    public function UserUpdateTarefa($post){
+        $this->method->UserUpdate($post);
+        header("Location: /tarefas?curso=".$post['idCurso']);
+        die();
     }
 
+    public function DeleteTarefa($post){
+        $this->method->Delete($post);
+        header("Location: /tarefas?curso=".$post['idCurso']);
+        die();
+    }
+    
     public function EstudarTarefa($post){
         $tarefa = $this->scheduler->Estudar($post);
         return $this->UpdateTarefa($tarefa);

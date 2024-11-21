@@ -135,14 +135,12 @@ class TarefasOnDatabase{
     }
     
     public function Update($tarefa){
-        var_dump($tarefa);
         $tarefa = $this->pegarImagens($tarefa);
 
         $sqlUpdate = "UPDATE tarefas SET 
                     assunto = '{$tarefa['assunto']}',
                     pergunta = '{$tarefa['pergunta']}',
                     resposta = '{$tarefa['resposta']}',
-                    dataadicao = '{$tarefa['dataAdicao']}',
                     dataproximoestudo = '{$tarefa['dataProximoEstudo']}',
                     dataultimoestudo = '{$tarefa['dataUltimoEstudo']}',
                     midiaPergunta = '{$tarefa['midiaPergunta']}',
@@ -153,6 +151,26 @@ class TarefasOnDatabase{
         return mysqli_query($this->conexao, $sqlUpdate);
     }
 
+    public function UserUpdate($tarefa){
+        $tarefa = $this->pegarImagens($tarefa);
+        $sqlUpdate = "UPDATE tarefas SET 
+                    assunto = '{$tarefa['assunto']}',
+                    pergunta = '{$tarefa['pergunta']}',
+                    resposta = '{$tarefa['resposta']}'";
+
+        if(isset($tarefa['midiaPergunta'])){
+            $sqlUpdate .= ", midiaPergunta = '{$tarefa['midiaPergunta']}'";
+        }
+        if(isset($tarefa['midiaResposta'])){
+            $sqlUpdate .= ", midiaResposta = '{$tarefa['midiaResposta']}'";
+        }
+
+
+        $sqlUpdate .= " WHERE idTarefa = '{$tarefa['idTarefa']}' AND
+                       idCurso = '{$tarefa['idCurso']}'";
+
+        return mysqli_query($this->conexao, $sqlUpdate);
+    }
     
     public function Delete($tarefa){
         $sqlDelete = "DELETE FROM tarefas WHERE idTarefa = '{$tarefa['idTarefa']}'";

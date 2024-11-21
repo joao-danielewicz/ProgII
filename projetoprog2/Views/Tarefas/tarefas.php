@@ -51,8 +51,8 @@ if (!is_string($msg)) {
                                 <input class="form-control" type="number" name="idCurso" hidden value="<?php echo ($_GET['curso']) ?>">
                             </div>
                             <div class="modal-footer mt-3">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                                 <button type="submit" class="button-roxo btn btn-primary">Cadastrar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                             </div>
                         </form>
                     </div>
@@ -122,23 +122,24 @@ if (!is_string($msg)) {
                                                         <?php endif ?>
                                                     </div>
 
-                                                    <form action="updatetarefa" method="POST" enctype="multipart/form-data" class="d-flex flex-column p-3">
+                                                    <form action="userupdatetarefa" method="POST" enctype="multipart/form-data" class="d-flex flex-column p-3">
                                                         <div class="d-flex flex-column gap-3 align-items-center">
-                                                            <input class="form-control" type="text" name="assunto" placeholder="Assunto" required>
-                                                            <input class="form-control" type="text" name="pergunta" placeholder="Pergunta" required>
-                                                            <input class="form-control" type="text" name="resposta" placeholder="Resposta" required>
+                                                            <input class="form-control" value="<?php echo($tarefa->assunto)?>" type="text" name="assunto" placeholder="Assunto" required>
+                                                            <input class="form-control" value="<?php echo($tarefa->pergunta)?>" type="text" name="pergunta" placeholder="Pergunta" required>
+                                                            <input class="form-control" value="<?php echo($tarefa->resposta)?>" type="text" name="resposta" placeholder="Resposta" required>
 
                                                             <label for="midiapergunta">Mídia da pergunta</label>
                                                             <input class="form-control" id="midiapergunta" type="file" accept="image/*" name="midiaPergunta" placeholder="Imagem">
 
                                                             <label for="midiaresposta">Mídia da resposta</label>
                                                             <input class="form-control" id="midiaresposta" type="file" accept="image/*" name="midiaResposta" placeholder="Imagem">
-
                                                             <input class="form-control" type="number" name="idCurso" hidden value="<?php echo ($_GET['curso']) ?>">
+                                                            <input class="form-control" type="number" name="idTarefa" hidden value="<?php echo ($tarefa->idTarefa) ?>">
                                                         </div>
                                                         <div class="modal-footer mt-3">
+                                                            <button type="submit" class="button-roxo btn">Salvar alterações</button>
+                                                            <button type="submit" formaction="deletetarefa" class="btn btn-danger">Excluir</button>
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                            <button type="submit" class="button-roxo btn btn-primary">Cadastrar</button>
                                                         </div>
                                                 </div>
                                                 </form>
