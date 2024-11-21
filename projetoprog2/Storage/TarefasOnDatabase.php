@@ -69,7 +69,7 @@ class TarefasOnDatabase{
         }
     }
 
-    public function SelectTarefasByDate($idCurso, $data, $idUsuario){
+    public function SelectTarefasByDateOrLevel($idCurso, $idUsuario, $data){
         $sqlBusca = "SELECT cursos.idCurso FROM cursos WHERE 
                     cursos.idUsuario = '{$idUsuario}' ";
         $resultado = mysqli_query($this->conexao, $sqlBusca);
@@ -78,14 +78,15 @@ class TarefasOnDatabase{
             $cursosDisponiveis[] = $tarefa['idCurso'];
         }
         
-
+        
+        $data = date_format($data, "Y-m-d");
         if(in_array($idCurso, $cursosDisponiveis)){
-            $data = date_format($data, "Y-m-d");
-            $sqlBusca = "SELECT * FROM tarefas INNER JOIN
+            $sqlBusca = "SELECT tarefas.* FROM tarefas INNER JOIN
                         cursos ON tarefas.idCurso = cursos.idCurso WHERE
                         tarefas.idCurso = '{$idCurso}' AND
                         cursos.idUsuario = '{$idUsuario}' AND
-                        tarefas.dataProximoEstudo = '{$data}' ";
+                        CAST(tarefas.dataProximoEstudo as DATE) = '{$data}' OR
+                        tarefas.nivelEstudo = 0";
 
             $resultado = mysqli_query($this->conexao, $sqlBusca);
             

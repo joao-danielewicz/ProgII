@@ -71,7 +71,7 @@ insert into cursos (nome, areaConhecimento, idUsuario) values ('teste', 'teste',
 insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('teste', 'teste', 'teste', -1, 1);
 insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 1);
-insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', -1, 2);
+insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', 0, 6);
 
 insert into usuarios(nome, email, senha, dataNascimento, telefone) values ('joao', 'joao', '52aa854c0120218c02dad358eb436f4a0e8a584d150c00cf36f2e590aed2a3dd', 20040916, '49999653313');
 insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 1);
@@ -80,8 +80,9 @@ select * from tarefas;
 select * from usuarios;
 select * from cursos;
 
-
-
-select * from tereza.usuario;
-
-delete from cursos where idCurso = 4;
+SELECT tarefas.* FROM tarefas INNER JOIN
+                        cursos ON tarefas.idCurso = cursos.idCurso WHERE
+                        tarefas.idCurso = 6 AND
+                        cursos.idUsuario = 3 AND
+                        
+                        tarefas.nivelEstudo = 0;

@@ -8,3 +8,7 @@
 a:hover{
     color: #7b1fa2 !important;
 }
+
+#cards{
+    min-height: 75vh;
+}

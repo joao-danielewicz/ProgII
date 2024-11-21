@@ -4,35 +4,67 @@ require_once "TarefaScheduler.php";
 class TarefasController extends RenderView{
     private $method;
     private $scheduler;
+    private int $idUsuario;
+    
+    public function __construct($method){
+        $this->method = $method;
+        $this->scheduler = new TarefaScheduler();
+        session_start();
+        $this->idUsuario = $_SESSION['usuario']->idUsuario;
+        session_abort();
+    }
 
-    public function index($msg = ''){
+    public function index($msg = '', $titulo = 'RecapPro - Detalhes do Curso'){
         if(empty($_COOKIE)){
             header('Location: /');
             die();
         }
 
-        session_start();
-        $tarefas = $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario);
-        session_abort();
+        
+        $tarefas = $this->GetTarefas($_GET['curso'], $this->idUsuario);;
 
         if($tarefas != "Erro."){
             $this->loadView('/Tarefas/tarefas', [
+                'titulo' => $titulo,
                 'msg' => $msg,
-                'tarefas' => $this->GetTarefas($_GET['curso'], $_SESSION['usuario']->idUsuario)
+                'tarefas' => $this->GetTarefas($_GET['curso'], $this->idUsuario)
             ]);
             die();
         }else{
             $this->loadView('/Tarefas/tarefas', [
+                'titulo' => $titulo,
                 'msg' => 'Este curso não pôde ser encontrado. Tente novamente.'
             ]);
             die();
         }
     }
 
-    public function __construct($method){
-        $this->method = $method;
-        $this->scheduler = new TarefaScheduler();
+    private function estudar($idCurso, $msg = '', $titulo = 'RecapPro - Estudar'){
+        if(empty($_COOKIE)){
+            header('Location: /');
+            die();
+        }
+
+        $tarefas = $this->GetTarefasByDateOrLevel($idCurso, $this->idUsuario, new DateTime());
+
+        if($tarefas != "Erro."){
+            $this->loadView('/Tarefas/estudo', [
+                'titulo' => $titulo,
+                'tarefas' => $tarefas
+            ]);
+            die();    
+        }
+        
+        var_dump($this->GetTarefasByDateOrLevel($idCurso, $this->idUsuario, new DateTime()));
+
+        // $this->loadView('/Tarefas/estudo', [
+        //     'titulo' => $titulo,
+        //     'msg' => 'Este curso não pôde ser encontrado. Tente novamente.'
+        // ]);
+        // die();
+
     }
+
 
     public function InsertTarefa($tarefa){
         if(!empty($tarefa)){
@@ -69,6 +101,7 @@ class TarefasController extends RenderView{
         }
         return null;
     }
+
     public function GetTarefas($idCurso, $idUsuario){
         $listaTarefas = $this->method->SelectAllTarefas($idCurso, $idUsuario);
         if($listaTarefas != "Erro."){
@@ -78,17 +111,8 @@ class TarefasController extends RenderView{
         }
     }
     
-    public function GetTarefasByDate($idCurso, $data, $idUsuario){
-        $listaTarefas = $this->method->SelectTarefasByDate($idCurso, $data, $idUsuario);
-        if($listaTarefas != "Erro."){
-            return $this->BuildTarefas($listaTarefas);
-        }else{
-            return "Erro.";
-        }
-    }
-
-    public function GetNovasTarefas($idCurso, $idUsuario){
-        $listaTarefas = $this->method->SelectNovasTarefas($idCurso, $idUsuario);
+    public function GetTarefasByDateOrLevel($idCurso, $idUsuario, $data){
+        $listaTarefas = $this->method->SelectTarefasByDateOrLevel($idCurso, $idUsuario, $data);
         if($listaTarefas != "Erro."){
             return $this->BuildTarefas($listaTarefas);
         }else{
@@ -112,8 +136,7 @@ class TarefasController extends RenderView{
         die();
     }
     
-    public function EstudarTarefa($post){
-        $tarefa = $this->scheduler->Estudar($post);
-        return $this->UpdateTarefa($tarefa);
+    public function GetTarefasEstudo($post){
+        $this->estudar($post['idCurso']);
     }
 }

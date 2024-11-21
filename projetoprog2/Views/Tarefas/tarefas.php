@@ -22,12 +22,21 @@ if (!is_string($msg)) {
     <div class="d-flex flex-column bg-white p-3 rounded round text-center shadow mb-3">
         <h3>Curso "x"</h3>
         <hr>
-        <!-- Button trigger modal -->
-        <button type="button" class="button-roxo btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTarefa">
-            Adicionar nova tarefa
-        </button>
+        
+        <div class="d-flex justify-content-stretch ">
 
-        <!-- Modal -->
+            <button type="button" class="w-100 button-roxo btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTarefa">
+                Adicionar nova tarefa
+            </button>
+            <?php if (isset($tarefas)): ?>
+            <form action="estudo" method="POST" class="w-100 ps-3">
+                <button type="submit" name="idCurso" value="<?php echo($_GET['curso'])?>" class="w-100 button-roxo btn btn-primary">
+                    Estudar
+                </button>
+            </form>
+            <?php endif; ?>
+        </div>
+
         <div class="modal fade" id="modalTarefa" tabindex="-1" aria-labelledby="cadastroTarefa" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -124,9 +133,9 @@ if (!is_string($msg)) {
 
                                                     <form action="userupdatetarefa" method="POST" enctype="multipart/form-data" class="d-flex flex-column p-3">
                                                         <div class="d-flex flex-column gap-3 align-items-center">
-                                                            <input class="form-control" value="<?php echo($tarefa->assunto)?>" type="text" name="assunto" placeholder="Assunto" required>
-                                                            <input class="form-control" value="<?php echo($tarefa->pergunta)?>" type="text" name="pergunta" placeholder="Pergunta" required>
-                                                            <input class="form-control" value="<?php echo($tarefa->resposta)?>" type="text" name="resposta" placeholder="Resposta" required>
+                                                            <input class="form-control" value="<?php echo ($tarefa->assunto) ?>" type="text" name="assunto" placeholder="Assunto" required>
+                                                            <input class="form-control" value="<?php echo ($tarefa->pergunta) ?>" type="text" name="pergunta" placeholder="Pergunta" required>
+                                                            <input class="form-control" value="<?php echo ($tarefa->resposta) ?>" type="text" name="resposta" placeholder="Resposta" required>
 
                                                             <label for="midiapergunta">Mídia da pergunta</label>
                                                             <input class="form-control" id="midiapergunta" type="file" accept="image/*" name="midiaPergunta" placeholder="Imagem">
@@ -156,4 +165,6 @@ if (!is_string($msg)) {
     </div>
 </div>
 
-<?php require_once "Views/shared/layout/footer.php" ?>
+<?php
+    require_once "Views/shared/layout/footer.php";
+?>
