@@ -15,7 +15,7 @@ class CursosController extends RenderView{
         $this->method = $method;
 
         session_start();
-        $this->idUsuario = $this->idUsuario;
+        $this->idUsuario = $_SESSION['usuario']->idUsuario;
         session_abort();
     }
 

@@ -21,7 +21,7 @@ class TarefasController extends RenderView{
         }
 
         
-        $tarefas = $this->GetTarefas($_GET['curso'], $this->idUsuario);;
+        $tarefas = $this->GetTarefas($_GET['curso'], $this->idUsuario);
 
         if($tarefas != "Erro."){
             $this->loadView('/Tarefas/tarefas', [
@@ -39,13 +39,13 @@ class TarefasController extends RenderView{
         }
     }
 
-    private function estudar($idCurso, $msg = '', $titulo = 'RecapPro - Estudar'){
+    public function estudo($msg = '', $titulo = 'RecapPro - Estudar'){
         if(empty($_COOKIE)){
             header('Location: /');
             die();
         }
 
-        $tarefas = $this->GetTarefasByDateOrLevel($idCurso, $this->idUsuario, new DateTime());
+        $tarefas = $this->GetTarefasByDateOrLevel($_GET['curso'], $this->idUsuario, new DateTime());
 
         if($tarefas != "Erro."){
             $this->loadView('/Tarefas/estudo', [
@@ -55,14 +55,11 @@ class TarefasController extends RenderView{
             die();    
         }
         
-        var_dump($this->GetTarefasByDateOrLevel($idCurso, $this->idUsuario, new DateTime()));
-
-        // $this->loadView('/Tarefas/estudo', [
-        //     'titulo' => $titulo,
-        //     'msg' => 'Este curso não pôde ser encontrado. Tente novamente.'
-        // ]);
-        // die();
-
+        $this->loadView('/Tarefas/estudo', [
+            'titulo' => $titulo,
+            'msg' => 'Este curso não pôde ser encontrado. Tente novamente.'
+        ]);
+        die();
     }
 
 
@@ -124,6 +121,25 @@ class TarefasController extends RenderView{
         return $this->method->Update($post);
     }
 
+    private function UpdateTarefaEstudo($tarefa){
+        $tarefa = $this->scheduler->Estudar($tarefa);
+        $this->UpdateTarefa($tarefa);
+    }
+    
+    public function estudartarefas($post){
+        $tarefasEstudo = array_chunk($post,3);
+
+        $i=0;
+        foreach($this->method->SelectAllTarefas($tarefasEstudo[0][2], $this->idUsuario) as $tarefa){
+            if($tarefa['idTarefa'] == $tarefasEstudo[$i][0]){
+                $tarefa['estudar'] = $tarefasEstudo[$i][1];
+                $this->UpdateTarefaEstudo($tarefa);
+            }
+            $i++;
+        }
+        var_dump($this->GetTarefas($tarefasEstudo[0][2], $this->idUsuario));
+    }
+
     public function UserUpdateTarefa($post){
         $this->method->UserUpdate($post);
         header("Location: /tarefas?curso=".$post['idCurso']);
@@ -134,9 +150,5 @@ class TarefasController extends RenderView{
         $this->method->Delete($post);
         header("Location: /tarefas?curso=".$post['idCurso']);
         die();
-    }
-    
-    public function GetTarefasEstudo($post){
-        $this->estudar($post['idCurso']);
     }
 }

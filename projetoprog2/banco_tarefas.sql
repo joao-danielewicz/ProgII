@@ -80,9 +80,11 @@ select * from tarefas;
 select * from usuarios;
 select * from cursos;
 
+
+
 SELECT tarefas.* FROM tarefas INNER JOIN
                         cursos ON tarefas.idCurso = cursos.idCurso WHERE
                         tarefas.idCurso = 6 AND
                         cursos.idUsuario = 3 AND
-                        CAST(tarefas.dataProximoEstudo as DATE) = ('2024-11-21') or
-                        tarefas.nivelEstudo = 0;
+                        (CAST(tarefas.dataProximoEstudo as DATE) = ('2024-11-21') OR
+                        tarefas.nivelEstudo = 0);

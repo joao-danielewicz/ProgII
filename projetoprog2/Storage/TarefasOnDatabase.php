@@ -85,8 +85,8 @@ class TarefasOnDatabase{
                         cursos ON tarefas.idCurso = cursos.idCurso WHERE
                         tarefas.idCurso = '{$idCurso}' AND
                         cursos.idUsuario = '{$idUsuario}' AND
-                        CAST(tarefas.dataProximoEstudo as DATE) = '{$data}' OR
-                        tarefas.nivelEstudo = 0";
+                        (CAST(tarefas.dataProximoEstudo as DATE) = '{$data}' OR
+                        tarefas.nivelEstudo = 0)";
 
             $resultado = mysqli_query($this->conexao, $sqlBusca);
             
@@ -136,16 +136,9 @@ class TarefasOnDatabase{
     }
     
     public function Update($tarefa){
-        $tarefa = $this->pegarImagens($tarefa);
-
         $sqlUpdate = "UPDATE tarefas SET 
-                    assunto = '{$tarefa['assunto']}',
-                    pergunta = '{$tarefa['pergunta']}',
-                    resposta = '{$tarefa['resposta']}',
                     dataproximoestudo = '{$tarefa['dataProximoEstudo']}',
                     dataultimoestudo = '{$tarefa['dataUltimoEstudo']}',
-                    midiaPergunta = '{$tarefa['midiaPergunta']}',
-                    midiaResposta = '{$tarefa['midiaResposta']}',
                     nivelEstudo = '{$tarefa['nivelEstudo']}'
                     WHERE
                     idTarefa = '{$tarefa['idTarefa']}'";

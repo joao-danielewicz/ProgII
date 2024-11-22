@@ -20,20 +20,18 @@ if (!is_string($msg)) {
 
 <div class="container mt-5">
     <div class="d-flex flex-column bg-white p-3 rounded round text-center shadow mb-3">
-        <h3>Curso "x"</h3>
+        <h3>Tarefas do curso</h3>
         <hr>
-        
+
         <div class="d-flex justify-content-stretch ">
 
             <button type="button" class="w-100 button-roxo btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTarefa">
                 Adicionar nova tarefa
             </button>
             <?php if (isset($tarefas)): ?>
-            <form action="estudo" method="POST" class="w-100 ps-3">
-                <button type="submit" name="idCurso" value="<?php echo($_GET['curso'])?>" class="w-100 button-roxo btn btn-primary">
+                <a role="button" href="/estudo?curso=<?php echo ($_GET['curso']) ?>" class="ms-3 w-100 button-roxo btn btn-primary">
                     Estudar
-                </button>
-            </form>
+                </a>
             <?php endif; ?>
         </div>
 
@@ -166,5 +164,5 @@ if (!is_string($msg)) {
 </div>
 
 <?php
-    require_once "Views/shared/layout/footer.php";
+require_once "Views/shared/layout/footer.php";
 ?>

@@ -20,5 +20,6 @@ $routes = [
     '/cadtarefa' => 'TarefasController@InsertTarefa',
     '/userupdatetarefa' => 'TarefasController@UserUpdateTarefa',
     '/deletetarefa' => 'TarefasController@DeleteTarefa',
-    '/estudo' => 'TarefasController@GetTarefasEstudo'
+    '/estudo' => 'TarefasController@estudo',
+    '/estudartarefa' => 'TarefasController@estudartarefa'
 ];

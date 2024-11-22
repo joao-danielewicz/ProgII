@@ -47,7 +47,7 @@ class TarefaScheduler{
                 $tarefa['nivelEstudo'] --;
             }
         }else if($tarefa['estudar'] == "facil"){
-            if($tarefa['nivelEstudo'] == 7){
+            if($tarefa['nivelEstudo'] <= 7){
                 $tarefa['nivelEstudo'] ++;
             }
         }
