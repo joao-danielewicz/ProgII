@@ -136,12 +136,19 @@ class TarefasOnDatabase{
     }
     
     public function Update($tarefa){
+        if(isset($tarefa['idUsuario'])){
+            $sqlUpdate = "UPDATE usuarios SET qtdpontos = qtdPontos+1 WHERE idUsuario = '{$tarefa['idUsuario']}'";
+            mysqli_query($this->conexao, $sqlUpdate);
+        }
+        
         $sqlUpdate = "UPDATE tarefas SET 
                     dataproximoestudo = '{$tarefa['dataProximoEstudo']}',
                     dataultimoestudo = '{$tarefa['dataUltimoEstudo']}',
                     nivelEstudo = '{$tarefa['nivelEstudo']}'
                     WHERE
                     idTarefa = '{$tarefa['idTarefa']}'";
+
+
         return mysqli_query($this->conexao, $sqlUpdate);
     }
 

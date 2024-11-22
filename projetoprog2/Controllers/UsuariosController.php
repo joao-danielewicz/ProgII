@@ -45,7 +45,8 @@ class UsuariosController extends RenderView{
                                                 $usuario['email'],
                                                 $usuario['cursos'],
                                                 new DateTime($usuario['dataNascimento']),
-                                                $usuario['telefone']);
+                                                $usuario['telefone'],
+                                                $usuario['isAdmin'],);
                 header('Location: /');
             }
         }

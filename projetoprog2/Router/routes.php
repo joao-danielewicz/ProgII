@@ -21,5 +21,11 @@ $routes = [
     '/userupdatetarefa' => 'TarefasController@UserUpdateTarefa',
     '/deletetarefa' => 'TarefasController@DeleteTarefa',
     '/estudo' => 'TarefasController@estudo',
-    '/estudartarefa' => 'TarefasController@estudartarefa'
+    '/estudartarefa' => 'TarefasController@estudartarefas',
+
+    // Itens cosméticos
+    '/itensadmin' => 'CosmeticsController@admin',
+    '/caditem' => 'CosmeticsController@InsertItem',
+    '/updateitem' => 'CosmeticsController@UpdateItem',
+    '/deleteitem' => 'CosmeticsController@DeleteItem'
 ];

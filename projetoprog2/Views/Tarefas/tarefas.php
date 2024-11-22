@@ -163,6 +163,7 @@ if (!is_string($msg)) {
     </div>
 </div>
 
+
 <?php
 require_once "Views/shared/layout/footer.php";
 ?>

@@ -117,8 +117,9 @@ class TarefasController extends RenderView{
         }
     }
     
-    public function UpdateTarefa($post){
-        return $this->method->Update($post);
+    public function UpdateTarefa($tarefa){
+        $tarefa['idUsuario'] = $this->idUsuario;
+        return $this->method->Update($tarefa);
     }
 
     private function UpdateTarefaEstudo($tarefa){
@@ -128,16 +129,16 @@ class TarefasController extends RenderView{
     
     public function estudartarefas($post){
         $tarefasEstudo = array_chunk($post,3);
-
         $i=0;
         foreach($this->method->SelectAllTarefas($tarefasEstudo[0][2], $this->idUsuario) as $tarefa){
             if($tarefa['idTarefa'] == $tarefasEstudo[$i][0]){
                 $tarefa['estudar'] = $tarefasEstudo[$i][1];
                 $this->UpdateTarefaEstudo($tarefa);
+                $i++;
             }
-            $i++;
         }
-        var_dump($this->GetTarefas($tarefasEstudo[0][2], $this->idUsuario));
+        header("Location: /meuscursos");
+        die();
     }
 
     public function UserUpdateTarefa($post){

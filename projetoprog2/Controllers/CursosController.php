@@ -6,17 +6,12 @@
 // Ela ficará responsável por operações que se relacionam com o modelo Curso, como o CRUD.
 class CursosController extends RenderView{
     private $method;
-    private int $idUsuario;
 
-    // Na função construtora, recebemos o método de armazenamento e o ID do usuário na superglobal de sessão ativa.
+    // Na função construtora, recebemos o método de armazenamento.
     // Utilizamos a injeção de dependência para evitar o alto acoplamento e deixar o código pronto caso, em algum momento,
     // o tipo de armazenamento seja alterado. Caso isso ocorra, basta mudar a instância das classes OnDatabase no Core da aplicação.
     public function __construct($method){
         $this->method = $method;
-
-        session_start();
-        $this->idUsuario = $_SESSION['usuario']->idUsuario;
-        session_abort();
     }
 
     // A função index tem como objetivo guiar o usuário à página que conterá uma listagem dos cursos que pertencem a ele.
@@ -26,15 +21,16 @@ class CursosController extends RenderView{
     // Caso haja sucesso, a função carregará a página de View, passando algumas variáveis úteis: uma eventual mensagem ao usuário,
     // o título da página e a listagem dos cursos encontrados.
     // A mensagem tem o valor padrão vazio, e a View será responsável por renderizá-la caso contenha algum texto.
-    public function index($msg = '', $titulo = 'RecapPro - Meus Cursos'){
+    public function index($msg = ''){
         if(empty($_COOKIE)){
             header('Location: /');
             die();
         }
+        session_start();
         $this->loadView('/Cursos/meuscursos', [
             'msg' => $msg,
-            'titulo' => $titulo,
-            'cursos' => $this->GetCursos($this->idUsuario)
+            'titulo' => "RecapPro - Cursos",
+            'cursos' => $this->GetCursos($_SESSION['usuario']->idUsuario)
         ]);
     }
 
@@ -80,16 +76,20 @@ class CursosController extends RenderView{
     // Como as informações do curso a serem alteradas provêm de um formulário, é inviável que o usuário digite o próprio ID para
     // que possamos atualizar o curso correto na lógica do armazenamento.
     // Portanto, definimos uma nova chave do Array para que contenha a informação de qual usuário se deve retirar o curso.
-    public function UpdateCurso($curso){
-        $curso['idUsuario'] = $this->idUsuario;
-        $this->method->Update($curso);
+    public function UpdateCurso($post){
+        session_start();
+        $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
+        session_abort();
+        $this->method->Update($post);
         $this->index();
         die();
     }
 
-    public function DeleteCurso($curso){
-        $curso['idUsuario'] = $this->idUsuario;
-        $this->method->Delete($curso);
+    public function DeleteCurso($post){
+        session_start();
+        $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
+        session_abort();
+        $this->method->Delete($post);
         $this->index();
         die();
     }

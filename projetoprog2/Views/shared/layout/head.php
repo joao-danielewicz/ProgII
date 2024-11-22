@@ -6,5 +6,6 @@
 
     <link rel="stylesheet" href="/Views/shared/src/css/bootstrap.css">
     <link rel="stylesheet" href="/Views/shared/src/css/common.css">
+    <script src="/Views/shared/src/js/jquery-3.7.1.min.js"></script>
     
 </head>
