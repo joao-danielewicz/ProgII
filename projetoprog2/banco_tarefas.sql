@@ -68,24 +68,6 @@ create table tarefas (
     constraint fk_id_curso foreign key(idcurso) references cursos(idCurso) on delete cascade
 );
 
-insert into usuarios(nome, email, senha, dataNascimento, telefone, isAdmin) values ('joao', 'joao@joao.com', 'f44d03a974b576b7bd08cadfe90da134ba4cff04cd59e1bb547c4eb39b77725f', 20040916, '49999653313', 1);
-insert into cursos (nome, areaConhecimento, idUsuario) values ('teste', 'teste', 1);
-insert into cursos (nome, areaConhecimento, idUsuario) values ('outroteste', 'outroteste', 1);
-insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('teste', 'teste', 'teste', -1, 1);
-insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('outroteste', 'outroteste', 'outroteste', -1, 1);
-insert into tarefas (assunto, pergunta, resposta, nivelestudo, idcurso) values ('maisoutroteste', 'maisoutroteste', 'maisoutroteste', 0, 1);
-
-insert into usuarios(nome, email, senha, dataNascimento, telefone, isAdmin) values ('joao', 'joao@joao', '68412c84de1c1aaf8878890e79d2c6410aa2151b15b995806d212660413261f1', 20040916, '49999653313', 1);
-
-select * from tarefas;
-select * from usuarios;
-select * from cursos;
 
 
-
-SELECT tarefas.* FROM tarefas INNER JOIN
-                        cursos ON tarefas.idCurso = cursos.idCurso WHERE
-                        tarefas.idCurso = 6 AND
-                        cursos.idUsuario = 3 AND
-                        (CAST(tarefas.dataProximoEstudo as DATE) = ('2024-11-21') OR
-                        tarefas.nivelEstudo = 0);
+select * from inventarios;

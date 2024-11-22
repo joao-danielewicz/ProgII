@@ -27,5 +27,7 @@ $routes = [
     '/itensadmin' => 'CosmeticsController@admin',
     '/caditem' => 'CosmeticsController@InsertItem',
     '/updateitem' => 'CosmeticsController@UpdateItem',
-    '/deleteitem' => 'CosmeticsController@DeleteItem'
+    '/deleteitem' => 'CosmeticsController@DeleteItem',
+    '/loja' => 'CosmeticsController@index',
+    '/compraritem' => 'CosmeticsController@ComprarItem'
 ];

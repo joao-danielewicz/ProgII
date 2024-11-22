@@ -17,11 +17,35 @@ class CosmeticsController extends RenderView{
             }
         }
     }
+
+    public function ComprarItem($post){
+        if(empty($_COOKIE)){
+            header("Location: /");
+        }
+
+        if(!isset($_POST['idItem'])){
+            header("Location: /");
+        }
+        
+        session_start();
+        $idUsuario = $_SESSION['usuario']->idUsuario;
+        session_abort();
+
+        $this->index($this->method->ComprarItem($post['idItem'], $idUsuario));
+    }
+
+    public function index($msg=''){
+        $this->loadView('Cosmetics/loja',[
+            'msg' => $msg,
+            'titulo' => "RecapPro - Loja de Pontos",
+            'itens' => $this->GetItens()
+        ]);
+    }
     public function admin(){
         $this->verifyAdmin();
         
         $this->loadView('Cosmetics/admin', [
-            'titulo' => "RecapPro - Loja de Pontos",
+            'titulo' => "RecapPro - Cadastro de Cosméticos",
             'itens' => $this->GetItens()
         ]);
     }

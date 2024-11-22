@@ -51,6 +51,34 @@ class CosmeticsOnDatabase{
         return mysqli_query($this->conexao, $sqlUpdate);
     }
 
+    public function ComprarItem($idItem, $idUsuario){
+        $sqlBusca = "SELECT qtdPontos FROM usuarios WHERE idUsuario = '{$idUsuario}'";
+        $resultado = mysqli_query($this->conexao, $sqlBusca);
+        $saldoPontos = mysqli_fetch_row($resultado)[0];
+
+        $sqlBusca = "SELECT preco FROM itensCosmeticos WHERE idItem = '{$idItem}'";
+        $resultado = mysqli_query($this->conexao, $sqlBusca);
+        $precoItem = mysqli_fetch_row($resultado)[0];
+
+        if($saldoPontos >= $precoItem){
+            try{
+                $sqlInsert = "INSERT INTO itensInventario (idItem, idInventario)
+                        values (
+                        '{$idItem}',
+                        (SELECT idInventario FROM inventarios where inventarios.idUsuario = '{$idUsuario}'))";
+                $resultado = mysqli_query($this->conexao, $sqlInsert);
+                
+                $sqlUpdate = "UPDATE usuarios SET qtdPontos = qtdPontos - '{$precoItem}' WHERE idUsuario = '{$idUsuario}'";
+                $resultado = mysqli_query($this->conexao, $sqlUpdate);
+
+                return "Item adquirido com sucesso! Verifique sua página de perfil.";
+            }catch(Exception $e){
+                return "Você já possui este item.";
+            }
+        }else{
+            return "Saldo insuficiente.";
+        }
+    }
     
     public function Delete($item){
         $sqlDelete = "DELETE FROM itensCosmeticos WHERE idItem = '{$item['idItem']}'";

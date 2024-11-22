@@ -4,7 +4,7 @@ require_once "Views/shared/layout/header.php";
 
 <!-- Cria um título para a página -->
 <title><?php echo ($titulo) ?></title>
-
+<link rel="stylesheet" href="/Views/cosmetics/src/css/cosmetics.css">
 
 
 <div class="container mt-5">
@@ -51,7 +51,7 @@ require_once "Views/shared/layout/header.php";
         <p class="m-0">Veja abaixo todos os itens cosméticos</p>
     </div>
 
-    <div class="p-3 bg-white rounded round">
+    <div class="p-3 bg-white rounded round shadow">
 
         <?php if ($itens): ?>
             <table class="table table-bordered table-hover">
@@ -84,8 +84,11 @@ require_once "Views/shared/layout/header.php";
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p class="m-0">Imagem do item</p>
-                                                <img src="data:image/*; base64,<?= base64_encode($item->midia) ?>" />
+                                                <p class="m-0 mb-2 text-center">Imagem do item</p>
+                                                <div class="container">
+
+                                                    <img src="data:image/*; base64,<?= base64_encode($item->midia) ?>" />
+                                                </div>
 
 
                                                 <form action="updateitem" method="POST" enctype="multipart/form-data" class="d-flex flex-column p-3">
