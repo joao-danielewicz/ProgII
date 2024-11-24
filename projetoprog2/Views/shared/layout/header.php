@@ -11,7 +11,7 @@
                 <a class="pe-3 border-end" href="/login">Entrar</a>
                 <a class="ps-3"href="/cadastro">Crie sua conta</a>
             <?php else: ?>
-                <a class="pe-3 border-end" href="/loja">Loja de pontos</a>
+                <a class="px-3 border-end" href="/loja">Loja de pontos</a>
                 <a class="px-3 border-end" href="/meuscursos">Meus cursos</a>
                 <a class="ps-3"href="/perfil">Perfil</a>
             <?php endif; ?>

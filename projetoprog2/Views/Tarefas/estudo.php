@@ -24,29 +24,35 @@ require_once "Views/shared/layout/header.php";
                     <?php foreach ($tarefas as $tarefa): ?>
                         <div class="carousel-item px-5">
                             <div class="areaPergunta mb-3">
-                                <h2><?php echo ($tarefa->pergunta) ?></h2>
-                                <hr class="mx-5">
-                                <p class="m-0 mb-3"><?php echo ($tarefa->assunto) ?></p>
-                                <?php if ($tarefa->midiaPergunta): ?>
-                                    <img src="data:image/*; base64,<?= base64_encode($tarefa->midiaPergunta) ?>" />
-                                <?php endif ?>
-                                <button type="button" class="verResposta btn button-roxo">Ver resposta</button>
-                            </div>
-                            
-                            <div class="areaResposta" style="display: none;">
-                                <h2><?php echo($tarefa->resposta)?></h2>
-                                <hr>
-                                <?php if ($tarefa->midiaResposta): ?>
-                                    <img src="data:image/*; base64,<?= base64_encode($tarefa->midiaResposta) ?>" />
-                                <?php endif ?>
-                                
-                                <div>
-                                    <p>Dificuldade</p>
-                                    <button value="<?php echo($tarefa->idTarefa)?>" type="button" class="facil btn btn-success">Fácil</button>
-                                    <button value="<?php echo($tarefa->idTarefa)?>" type="button" class="dificil btn btn-success">Difícil</button>
-                                </div>
+                                <div class="mx-5 d-flex align-items-baseline justify-content-between">
 
-                                <button type="button" class="verPergunta btn button-roxo mt-3">Voltar à pergunta</button>
+                                    <h2><?php echo ($tarefa->pergunta) ?></h2>
+                                    <p class="m-0"><?php echo ($tarefa->assunto) ?></p>
+                                </div>
+                                <hr class="mx-5 mb-3">
+
+                                <div>
+
+                                    <button id="alternar">Mostrar resposta</button>
+
+                                    <div>
+                                        <?php if ($tarefa->midiaPergunta): ?>
+                                            <img class="mt-3"src="data:image/*; base64,<?= base64_encode($tarefa->midiaPergunta) ?>" />
+                                        <?php endif ?>
+                                    </div>
+
+                                    <div style="display: none;">
+                                        <?php if ($tarefa->midiaResposta): ?>
+                                            <h2><?php echo ($tarefa->resposta) ?></h2>
+                                            <img src="data:image/*; base64,<?= base64_encode($tarefa->midiaResposta) ?>" />
+                                            <div>
+
+                                                <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="facil btn btn-success">Fácil</button>
+                                                <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="dificil btn btn-success">Difícil</button>
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -55,7 +61,7 @@ require_once "Views/shared/layout/header.php";
                         <p>Você chegou ao fim da sessão de estudo!<br>
                             Verifique se respondeu todas as tarefas corretamente. <br>
                             Salve seu progresso usando o botão abaixo.</p>
-                        <form method="POST" action="estudartarefa" >
+                        <form method="POST" action="estudartarefa">
                             <?php foreach ($tarefas as $tarefa): ?>
                                 <div style="display:none;">
                                     <input name="tarefa<?php echo ($tarefa->idTarefa) ?>" type="number" value="<?php echo ($tarefa->idTarefa) ?>">
@@ -81,20 +87,20 @@ require_once "Views/shared/layout/header.php";
 </div>
 
 <script type="text/javascript">
-    $(".verResposta").click(function() {
-        $(event.target).closest(".areaPergunta").toggle();
-        $(event.target).closest(".areaPergunta").siblings().toggle();
-    })
-    $(".verPergunta").click(function() {
-        $(event.target).closest(".areaResposta").toggle();
-        $(event.target).closest(".areaResposta").siblings().toggle();
+    $("#alternar").click(function() {
+        $(event.target).siblings().toggle();
+        if ($(event.target).text() == 'Mostrar resposta') {
+            $(event.target).text('Mostrar pergunta')
+        }else{
+            $(event.target).text('Mostrar resposta')
+        }
     })
 
-    $(".facil").click(function(){
+    $(".facil").click(function() {
         let idtarefa = "#".concat($(event.target).val());
         $(idtarefa).attr('value', 'facil');
     })
-    $(".dificil").click(function(){
+    $(".dificil").click(function() {
         let idtarefa = "#".concat($(event.target).val());
         $(idtarefa).attr('value', 'dificil');
     })

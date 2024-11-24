@@ -7,8 +7,8 @@ require_once("Views/shared/layout/header.php");
 <div class="container mt-5">
 
 
-    <div class="d-flex align-items-center">
-        <div class="bg-white shadow rounded round p-3 me-3">
+    <div class="d-flex align-items-start">
+        <div id="infoperfil" class="bg-white shadow rounded round p-3 me-3">
             <?php if (!empty($usuario->fotoPerfil)): ?>
                 <div id="fotoPerfil" class="rounded-circle">
 
@@ -20,20 +20,28 @@ require_once("Views/shared/layout/header.php");
                 <p class="m-0"><?php echo ($usuario->nome) ?></p>
                 <p class="m-0"><?php echo ($usuario->email) ?></p>
                 <p class="m-0"><?php echo ($usuario->telefone) ?></p>
+                <p class="m-0">Saldo de pontos: <?php echo ($usuario->qtdPontos) ?></p>
+                <?php if ($usuario->isAdmin): ?>
+                    <a href="itensadmin" role="button" class="btn button-roxo w-100 mt-3">Loja de pontos - Admin</a>
+                <?php endif ?>
             </div>
         </div>
+
         <div id="galeria" class="text-center bg-white shadow rounded round p-3 flex-grow-1">
-            <h2>Galeria</h2>
+            <h2 class="my-3">Galeria</h2>
 
 
-            <?php if (!empty($galeria)): foreach ($galeria as $item): ?>
-                    <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
+            <div class="row g-0 row-cols-lg-3 row-cols-sm-2 row-cols-1">
+                <?php if (!empty($galeria)): foreach ($galeria as $item): ?>
                         <div class="col">
-                            <!-- <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>"/> -->
+                            <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>" />
                         </div>
-                    </div>
-            <?php endforeach;
-            endif; ?>
+                        <div class="col">
+                            <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>" />
+                        </div>
+                <?php endforeach;
+                endif; ?>
+            </div>
         </div>
     </div>
 </div>
