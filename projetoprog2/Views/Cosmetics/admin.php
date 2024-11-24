@@ -92,10 +92,15 @@ require_once "Views/shared/layout/header.php";
 
 
                                                 <form action="updateitem" method="POST" enctype="multipart/form-data" class="d-flex flex-column p-3">
+                                                    <label for="descricao" class="form-label">Descrição</label>
+                                                    <input class="form-control mb-3" value="<?php echo ($item->descricao) ?>" type="text" id="descricao" name="descricao" placeholder="Descrição" required>
 
-                                                    <input class="form-control" value="<?php echo ($item->descricao) ?>" type="text" name="descricao" placeholder="Descrição" required>
-                                                    <input class="form-control" value="<?php echo ($item->tipo) ?>" type="text" name="tipo" placeholder="Tipo" required>
-                                                    <input class="form-control" value="<?php echo ($item->preco) ?>" type="number" min="1" name="preco" placeholder="Preço" required>
+                                                    <label for="tipo" class="form-label">Tipo do item</label>
+                                                    <input class="form-control mb-3" value="<?php echo ($item->tipo) ?>" type="text" id="tipo" name="tipo" placeholder="Tipo" required>
+
+                                                    <label for="preco" class="form-label">Preço</label>
+                                                    <input class="form-control mb-3" value="<?php echo ($item->preco) ?>" type="number" min="1" id="preco" name="preco" placeholder="Preço" required>
+
 
                                                     <label for="midia">Mídia</label>
                                                     <input class="form-control" id="midia" type="file" accept="image/*" name="midia" placeholder="Imagem">

@@ -26,6 +26,23 @@ class UsuariosOnDatabase{
         return false;
     }
 
+    public function GetGaleria($idUsuario){
+        $sqlBusca = "SELECT ic.* FROM itensCosmeticos AS ic, itensInventario AS iv WHERE
+		            iv.idInventario = (SELECT idInventario FROM inventarios WHERE idUsuario = '{$idUsuario}') AND
+                    iv.idItem = ic.idItem";
+        $resultado = mysqli_query($this->conexao, $sqlBusca);
+
+        $galeria = [];
+        while($item = mysqli_fetch_assoc($resultado)){
+            $galeria[] = $item;
+        }
+
+        if($galeria != null){
+            return $galeria;
+        }
+        return "";
+    }
+    
     private function VerificarSenha($login){
         $usuario = $this->VerificarEmail($login);
         if($usuario){
@@ -36,6 +53,17 @@ class UsuariosOnDatabase{
                     while($curso = mysqli_fetch_assoc($resultado)){
                         $usuario['cursos'][] = $curso['idCurso'];
                     }
+
+                    if($usuario['idFotoPerfil']!=0){
+                        $sqlBusca = "SELECT ic.midia FROM itensCosmeticos AS ic, usuarios AS u WHERE
+                                    u.idFotoPerfil = ic.idItem AND
+                                    u.idUsuario = '{$usuario['idUsuario']}'";
+                        $resultado = mysqli_query($this->conexao, $sqlBusca);
+                        $usuario['fotoPerfil'] = mysqli_fetch_assoc($resultado)['midia'];; 
+                    }else{
+                        $usuario['fotoPerfil'] = '';
+                    }
+
                     unset($usuario['senha']);
                     return $usuario;
                 }

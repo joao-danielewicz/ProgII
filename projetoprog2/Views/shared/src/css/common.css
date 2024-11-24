@@ -15,6 +15,10 @@
     font-family: LatoItalic;
     src: url(../Lato/Lato-Italic.ttf)
 }
+@font-face {
+    font-family: LatoBlack;
+    src: url(../Lato/Lato-Black.ttf)
+}
 /* ------------------------------ */
 
 
@@ -42,6 +46,14 @@ header div#opcoes a{
 }
 header div#opcoes a:hover{
     color: #e0a2ff;
+}
+
+#titulo {
+    display: flex;
+}
+
+#titulo p:last-child{
+    font-family: LatoBlack;
 }
 /* --------------------- */
 

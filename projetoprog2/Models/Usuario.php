@@ -7,9 +7,10 @@ class Usuario{
     public DateTime $dataNascimento;
     public string $telefone;
     public int $isAdmin;
+    public string $fotoPerfil;
     public Array $cursos;
 
-    public function __construct(int $idUsuario, string $nome, string $email, $cursos, DateTime $dataNascimento, string $telefone, int $isAdmin){
+    public function __construct(int $idUsuario, string $nome, string $email, $cursos, DateTime $dataNascimento, string $telefone, int $isAdmin, string $fotoPerfil){
         $this->idUsuario=$idUsuario;
         $this->nome=$nome;
         $this->email=$email;
@@ -17,6 +18,7 @@ class Usuario{
         $this->telefone=$telefone;
         $this->cursos = $cursos;
         $this->isAdmin = $isAdmin;
+        $this->fotoPerfil= $fotoPerfil;
        
     }
 }

@@ -36,7 +36,6 @@ require_once "Views/shared/layout/header.php";
                             </form>
                         </div>
                     </div>
-
                 </div>
             <?php endforeach ?>
         </div>

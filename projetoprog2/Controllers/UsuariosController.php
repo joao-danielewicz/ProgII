@@ -22,6 +22,25 @@ class UsuariosController extends RenderView{
         ]);
     }
 
+    public function perfil(){
+        if(empty($_COOKIE)){
+            header('Location: /');
+            die();
+        }
+
+        session_start();
+        $usuario = $_SESSION['usuario'];
+        session_abort();
+        $this->loadView('Usuarios/perfil', [
+            'usuario' => $usuario,
+            'galeria' => $this->GetGaleria($usuario->idUsuario)
+        ]);
+    }
+
+    private function GetGaleria($idUsuario){
+        return $this->method->GetGaleria($idUsuario);
+    }
+
     public function InsertUsuario($usuario){
         if(!empty($usuario)){
             if($this->method->Insert($usuario)){
@@ -46,7 +65,8 @@ class UsuariosController extends RenderView{
                                                 $usuario['cursos'],
                                                 new DateTime($usuario['dataNascimento']),
                                                 $usuario['telefone'],
-                                                $usuario['isAdmin'],);
+                                                $usuario['isAdmin'],
+                                                $usuario['fotoPerfil']);
                 header('Location: /');
             }
         }

@@ -8,6 +8,7 @@ $routes = [
     '/cadastro' => 'UsuariosController@cadastro',
     '/caduser' => 'UsuariosController@InsertUsuario',
     '/loginuser' => 'UsuariosController@VerificarLogin',
+    '/perfil' => 'UsuariosController@perfil',
 
     // Curso
     '/meuscursos' => 'CursosController@index',

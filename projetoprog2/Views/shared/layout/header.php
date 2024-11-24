@@ -3,14 +3,17 @@
 <header class="py-3 shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
         <div id="titulo">
-            RecapPro
+            <p class="m-0">Recap</p>
+            <p class="m-0">Pro</p>
         </div>
         <div id="opcoes">
             <?php if(empty($_COOKIE)):?>
                 <a class="pe-3 border-end" href="/login">Entrar</a>
                 <a class="ps-3"href="/cadastro">Crie sua conta</a>
             <?php else: ?>
-                <a class="ps-3"href="/meuscursos">Meus cursos</a>
+                <a class="pe-3 border-end" href="/loja">Loja de pontos</a>
+                <a class="px-3 border-end" href="/meuscursos">Meus cursos</a>
+                <a class="ps-3"href="/perfil">Perfil</a>
             <?php endif; ?>
         </div>
     </div>
