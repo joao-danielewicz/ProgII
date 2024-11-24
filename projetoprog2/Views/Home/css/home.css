@@ -1,0 +1,9 @@
+#firstSection {
+    background: rgb(252, 252, 252);
+    background: linear-gradient(90deg, rgba(252, 252, 252, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(106, 13, 173, 1) 100%);
+    min-height: calc(100vh - 71px);
+}
+
+#firstSection h3{
+    font-family: LatoBold;
+}

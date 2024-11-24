@@ -33,24 +33,26 @@ require_once "Views/shared/layout/header.php";
 
                                 <div>
 
-                                    <button id="alternar">Mostrar resposta</button>
+                                    <button idTarefa="<?php echo($tarefa->idTarefa)?>" class="alternar btn button-roxo">Mostrar resposta</button>
 
-                                    <div>
+                                    <div class="<?php echo($tarefa->idTarefa)?>">
                                         <?php if ($tarefa->midiaPergunta): ?>
-                                            <img class="mt-3"src="data:image/*; base64,<?= base64_encode($tarefa->midiaPergunta) ?>" />
+                                            <img class="mt-3" src="data:image/*; base64,<?= base64_encode($tarefa->midiaPergunta) ?>" />
                                         <?php endif ?>
                                     </div>
 
-                                    <div style="display: none;">
+                                    <div style="display: none;" class="<?php echo($tarefa->idTarefa)?>">
+                                        <h2><?php echo ($tarefa->resposta) ?></h2>
+                                        <div>
+                                            <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="facil btn btn-success">Fácil</button>
+                                            <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="dificil btn btn-success">Difícil</button>
+                                        </div>
+                                    </div>
+                                    <div style="display: none;" class="<?php echo($tarefa->idTarefa)?>">
                                         <?php if ($tarefa->midiaResposta): ?>
-                                            <h2><?php echo ($tarefa->resposta) ?></h2>
                                             <img src="data:image/*; base64,<?= base64_encode($tarefa->midiaResposta) ?>" />
-                                            <div>
-
-                                                <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="facil btn btn-success">Fácil</button>
-                                                <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="dificil btn btn-success">Difícil</button>
-                                            </div>
                                         <?php endif ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -87,11 +89,12 @@ require_once "Views/shared/layout/header.php";
 </div>
 
 <script type="text/javascript">
-    $("#alternar").click(function() {
-        $(event.target).siblings().toggle();
+    $(".alternar").click(function() {
+        selector = ".".concat($(event.target).attr("idTarefa"));
+        $(selector).toggle();
         if ($(event.target).text() == 'Mostrar resposta') {
             $(event.target).text('Mostrar pergunta')
-        }else{
+        } else {
             $(event.target).text('Mostrar resposta')
         }
     })
