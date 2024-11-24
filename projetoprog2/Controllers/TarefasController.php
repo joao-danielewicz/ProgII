@@ -9,9 +9,11 @@ class TarefasController extends RenderView{
     public function __construct($method){
         $this->method = $method;
         $this->scheduler = new TarefaScheduler();
-        session_start();
-        $this->idUsuario = $_SESSION['usuario']->idUsuario;
-        session_abort();
+        if(!empty($_COOKIE)){
+            session_start();
+            $this->idUsuario = $_SESSION['usuario']->idUsuario;
+            session_abort();
+        }
     }
 
     public function index($msg = '', $titulo = 'RecapPro - Detalhes do Curso'){
@@ -128,6 +130,10 @@ class TarefasController extends RenderView{
     }
     
     public function estudartarefas($post){
+        if(empty($post)){
+            header('Location: /');
+            die();
+        }
         $tarefasEstudo = array_chunk($post,3);
         $i=0;
         foreach($this->method->SelectAllTarefas($tarefasEstudo[0][2], $this->idUsuario) as $tarefa){

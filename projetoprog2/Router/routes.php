@@ -9,6 +9,8 @@ $routes = [
     '/caduser' => 'UsuariosController@InsertUsuario',
     '/loginuser' => 'UsuariosController@VerificarLogin',
     '/perfil' => 'UsuariosController@perfil',
+    '/mudarfotoperfil' => 'UsuariosController@mudarfoto',
+    '/sair' => 'UsuariosController@Sair',
 
     // Curso
     '/meuscursos' => 'CursosController@index',

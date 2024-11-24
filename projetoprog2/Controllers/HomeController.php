@@ -5,7 +5,7 @@
 // São de sua responsabilidade as operações relacionadas à qualidade de vida do Site, mas que não necessariamente se relacionam com os Modelos do projeto.
 class HomeController extends RenderView{
     public function index(){
-        $this->loadView('/homepage', [
+        $this->loadView('/Home/homepage', [
             'titulo' => "RecapPro - Início"
         ]);
     }

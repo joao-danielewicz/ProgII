@@ -77,6 +77,10 @@ class CursosController extends RenderView{
     // que possamos atualizar o curso correto na lógica do armazenamento.
     // Portanto, definimos uma nova chave do Array para que contenha a informação de qual usuário se deve retirar o curso.
     public function UpdateCurso($post){
+        if(empty($post)){
+            header("Location: /");
+            die();
+        }
         session_start();
         $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
         session_abort();
@@ -86,6 +90,10 @@ class CursosController extends RenderView{
     }
 
     public function DeleteCurso($post){
+        if(empty($post)){
+            header("Location: /");
+            die();
+        }
         session_start();
         $post['idUsuario'] = $_SESSION['usuario']->idUsuario;
         session_abort();

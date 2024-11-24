@@ -21,10 +21,12 @@ class CosmeticsController extends RenderView{
     public function ComprarItem($post){
         if(empty($_COOKIE)){
             header("Location: /");
+            die();
         }
 
         if(!isset($_POST['idItem'])){
             header("Location: /");
+            die();
         }
         
         session_start();

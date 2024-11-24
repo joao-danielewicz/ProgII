@@ -71,9 +71,9 @@ if (!is_string($msg)) {
         <p class="m-0">Veja abaixo todas as tarefas deste curso.</p>
     </div>
 
-    <div class="p-3 bg-white rounded round">
+    <div class="p-3 bg-white rounded round shadow">
 
-        <?php if ($tarefas): ?>
+        <?php if (isset($tarefas)): ?>
             <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>

@@ -41,6 +41,25 @@ class UsuariosController extends RenderView{
         return $this->method->GetGaleria($idUsuario);
     }
 
+    public function mudarfoto(){
+        if(empty($_COOKIE)){
+            header('Location: /');
+            die();
+        }
+        
+        session_start();
+        $idUsuario = $_SESSION['usuario']->idUsuario;
+        foreach($this->GetGaleria($idUsuario) as $item){
+            if($item['idItem'] == $_GET['idItem']){
+                $_SESSION['usuario']->fotoPerfil = $item['midia'];
+            }
+        }
+        
+        $this->method->SetFotoPerfil($_GET['idItem'], $idUsuario);
+        
+        header('Location: /perfil');
+    }
+
     public function InsertUsuario($usuario){
         if(!empty($usuario)){
             if($this->method->Insert($usuario)){
@@ -52,6 +71,15 @@ class UsuariosController extends RenderView{
             }
         }
         header('Location: /');
+    }
+
+    public function Sair(){
+        session_start();
+        session_destroy();
+        setcookie('PHPSESSID',"", time() - 3600);
+
+        var_dump($_COOKIE);
+        header("Location: /");
     }
 
     public function VerificarLogin($login){

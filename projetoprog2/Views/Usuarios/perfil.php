@@ -22,7 +22,7 @@ require_once("Views/shared/layout/header.php");
                 <p class="m-0"><?php echo ($usuario->telefone) ?></p>
                 <p class="m-0">Saldo de pontos: <?php echo ($usuario->qtdPontos) ?></p>
                 <?php if ($usuario->isAdmin): ?>
-                    <a href="itensadmin" role="button" class="btn button-roxo w-100 mt-3">Loja de pontos - Admin</a>
+                    <a href="itensadmin" role="button" class="btn button-roxo w-100 mt-3'">Loja de pontos - Admin</a>
                 <?php endif ?>
             </div>
         </div>
@@ -34,10 +34,9 @@ require_once("Views/shared/layout/header.php");
             <div class="row g-0 row-cols-lg-3 row-cols-sm-2 row-cols-1">
                 <?php if (!empty($galeria)): foreach ($galeria as $item): ?>
                         <div class="col">
-                            <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>" />
-                        </div>
-                        <div class="col">
-                            <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>" />
+                            <a href="/mudarfotoperfil?idItem=<?php echo($item['idItem'])?>">
+                                <img src="data:image/*; base64,<?= base64_encode($item['midia']) ?>" />
+                            </a>
                         </div>
                 <?php endforeach;
                 endif; ?>

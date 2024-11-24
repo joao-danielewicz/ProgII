@@ -13,7 +13,8 @@
             <?php else: ?>
                 <a class="px-3 border-end" href="/loja">Loja de pontos</a>
                 <a class="px-3 border-end" href="/meuscursos">Meus cursos</a>
-                <a class="ps-3"href="/perfil">Perfil</a>
+                <a class="px-3 border-end" href="/perfil">Perfil</a>
+                <a class="ps-3"href="/sair">Sair</a>
             <?php endif; ?>
         </div>
     </div>

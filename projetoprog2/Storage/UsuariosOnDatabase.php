@@ -77,6 +77,13 @@ class UsuariosOnDatabase{
         return $usuario;
     }
 
+    public function SetFotoPerfil($idFoto, $idUsuario){
+        $sqlUpdate = "UPDATE usuarios SET
+                        idFotoPerfil = '{$idFoto}' WHERE
+                        idUsuario = '{$idUsuario}'";
+        return mysqli_query($this->conexao, $sqlUpdate);
+    }
+
     public function Insert($usuario){
         if(!$this->VerificarEmail($usuario)){
                 $usuario['senha'] = $this->EncryptPassword($usuario['senha']);
@@ -93,26 +100,5 @@ class UsuariosOnDatabase{
         return false;
     }
     
-    public function Update($tarefa){
-        $sqlUpdate = "UPDATE tarefas SET 
-                    assunto = '{$tarefa['assunto']}',
-                    pergunta = '{$tarefa['pergunta']}',
-                    resposta = '{$tarefa['resposta']}',
-                    midiaPergunta = '{$tarefa['midiaPergunta']}',
-                    midiaResposta = '{$tarefa['midiaResposta']}',
-                    dataadicao = '{$tarefa['dataadicao']}',
-                    dataproximoestudo = '{$tarefa['dataproximoestudo']}',
-                    dataultimoestudo = '{$tarefa['dataultimoestudo']}',
-                    nivelestudo = '{$tarefa['nivelestudo']}'
-                    idcurso = '{$tarefa['idcurso']}'
-                    WHERE
-                    id = '{$tarefa['id']}'";
-        return mysqli_query($this->conexao, $sqlUpdate);
-    }
-
     
-    public function Delete($usuario){
-        $sqlDelete = "DELETE FROM usuarios WHERE idUsuario = '{$usuario['idusuario']}'";
-        return mysqli_query($this->conexao, $sqlDelete);
-    }
 }
