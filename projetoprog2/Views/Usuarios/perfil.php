@@ -44,3 +44,8 @@ require_once("Views/shared/layout/header.php");
         </div>
     </div>
 </div>
+
+
+<?php
+require_once "Views/shared/layout/footer.php";
+?>

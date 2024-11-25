@@ -18,8 +18,7 @@ if (!is_string($msg)) {
 <?php endif; ?>
 
 
-<div class="container mt-5">
-    <div class="">
+<div class="container mt-5" style="min-height: calc(100vh - 71px);">
 
 
         <div class="d-flex flex-column bg-white p-3 rounded round text-center shadow mb-3">
@@ -105,7 +104,6 @@ if (!is_string($msg)) {
                 </div>
             <?php endforeach ?>
         <?php endif ?>
-    </div>
 </div>
 
 <?php require_once "Views/shared/layout/footer.php" ?>

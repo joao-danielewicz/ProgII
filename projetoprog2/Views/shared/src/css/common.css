@@ -35,6 +35,10 @@ header {
     top: 0;
     z-index: 1000;
 }
+header a{
+    text-decoration: none;
+    color: #340068;
+}
 
 header div#titulo{
     font-size: 26px;
@@ -57,6 +61,30 @@ header div#opcoes a:hover{
 }
 /* --------------------- */
 
+
+/* Estilos do rodapé */
+
+footer{
+    color: #f2d9ff;
+    height: 20vh;
+    background: #21004d;
+    bottom: 0;
+    z-index: 1000;
+}
+
+footer a{
+    color: #f2d9ff;
+    text-decoration: none;
+}
+
+footer div#titulo{
+    font-size: 26px;
+}
+
+footer div#opcoes a:hover{
+    color: #e0a2ff;
+}
+/* ----------------- */
 
 /* Estilos de botão */
 .button-roxo  {

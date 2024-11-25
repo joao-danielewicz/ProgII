@@ -18,7 +18,7 @@ if (!is_string($msg)) {
 <?php endif; ?>
 
 
-<div class="container mt-5">
+<div class="container mt-5" style="min-height: calc(100vh - 71px);">
     <div class="d-flex flex-column bg-white p-3 rounded round text-center shadow mb-3">
         <h3>Tarefas do curso</h3>
         <hr>

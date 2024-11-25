@@ -10,9 +10,9 @@ require_once "Views/shared/layout/header.php";
         <?php if ($tarefas == null): ?>
             <p>Você terminou seus estudos de hoje! Parabéns!</p>
         <?php else: ?>
-            <div id="carouselExample" class="carousel slide " data-bs-theme="dark">
-                <div class="carousel-inner">
-                    <div class="carousel-item active px-5">
+            <div id="carouselExample" class="carousel slide" data-bs-theme="dark">
+                <div class="carousel-inner container w-75">
+                    <div class="carousel-item active">
                         <h4 class="mb-5">Início</h4>
                         <p>Você iniciará os estudos para o dia de hoje.<br>
                             Ao responder uma pergunta, indique com honestidade a dificuldade que teve ao lembrar da resposta.</p>
@@ -22,18 +22,18 @@ require_once "Views/shared/layout/header.php";
                     </div>
 
                     <?php foreach ($tarefas as $tarefa): ?>
-                        <div class="carousel-item px-5">
+                        <div class="carousel-item">
                             <div class="areaPergunta mb-3">
-                                <div class="mx-5 d-flex align-items-baseline justify-content-between">
+                                <div class="d-flex align-items-baseline justify-content-between">
 
                                     <h2><?php echo ($tarefa->pergunta) ?></h2>
-                                    <p class="m-0"><?php echo ($tarefa->assunto) ?></p>
+                                    <p class="m-0 ms-3"><?php echo ($tarefa->assunto) ?></p>
                                 </div>
-                                <hr class="mx-5 mb-3">
+                                <hr class=" mb-3">
 
                                 <div>
 
-                                    <button idTarefa="<?php echo($tarefa->idTarefa)?>" class="alternar btn button-roxo">Mostrar resposta</button>
+                                    <button idTarefa="<?php echo($tarefa->idTarefa)?>" class="alternar btn button-roxo my-3">Mostrar resposta</button>
 
                                     <div class="<?php echo($tarefa->idTarefa)?>">
                                         <?php if ($tarefa->midiaPergunta): ?>
@@ -42,7 +42,7 @@ require_once "Views/shared/layout/header.php";
                                     </div>
 
                                     <div style="display: none;" class="<?php echo($tarefa->idTarefa)?>">
-                                        <h2><?php echo ($tarefa->resposta) ?></h2>
+                                        <h4 class="text-center mb-3"><?php echo ($tarefa->resposta) ?></h4>
                                         <div>
                                             <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="facil btn btn-success">Fácil</button>
                                             <button value="<?php echo ($tarefa->idTarefa) ?>" type="button" class="dificil btn btn-success">Difícil</button>
@@ -59,7 +59,7 @@ require_once "Views/shared/layout/header.php";
                         </div>
                     <?php endforeach; ?>
 
-                    <div class="carousel-item px-5">
+                    <div class="carousel-item">
                         <p>Você chegou ao fim da sessão de estudo!<br>
                             Verifique se respondeu todas as tarefas corretamente. <br>
                             Salve seu progresso usando o botão abaixo.</p>
@@ -93,7 +93,7 @@ require_once "Views/shared/layout/header.php";
         selector = ".".concat($(event.target).attr("idTarefa"));
         $(selector).toggle();
         if ($(event.target).text() == 'Mostrar resposta') {
-            $(event.target).text('Mostrar pergunta')
+            $(event.target).text('Esconder resposta')
         } else {
             $(event.target).text('Mostrar resposta')
         }
